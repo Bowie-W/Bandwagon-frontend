@@ -1,4 +1,4 @@
-export default function userlist (){
+export default function Userlist (){
 
     return(
 

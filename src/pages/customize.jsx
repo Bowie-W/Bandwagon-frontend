@@ -1,7 +1,7 @@
 import Tracks from '../components/Tracks'
 import Equipment from '../components/Equipment'
 
-export default function customize (){
+export default function Customize (){
 
     return(
         <div className="">

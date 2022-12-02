@@ -1,4 +1,4 @@
-export default function () {
+export default function Signup () {
     return (
       <div className="background">
         <form className="signup">
