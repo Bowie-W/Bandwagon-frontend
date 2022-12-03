@@ -4,13 +4,16 @@ import BackPic from "../assests/images/frank-cover.webp";
 import ProfilePic from "../assests/images/frank-ava.jpg";
 
 export default function Profile() {
+
+    // const bgImage = {backgroundImage: `url(${BackPic})`}
   return (
-    <div className="">
+    <div className="" style={{backgroundImage: `url(${BackPic})`, backgroundSize: 'cover', height: "100vh", width: "100vw"}}>
+    {/* // <div className={bgImage }> */}
       <div className="flex ml-1">
         <div className="leftbar w-1/4 h-screen bg-red-500 items-center">
           <div className="flex justify-center">
             <img
-              className="w-28 h-28 rounded-full my-5"
+              className="w-28 h-28 rounded-full my-5 object-cover"
               src={ProfilePic}
               alt="profile pic"
             />
@@ -30,7 +33,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="bg-blue-500 w-screen h-1/3 absolute bottom-1">
+      <div className="bg-blue-500/50 w-screen h-1/3 absolute bottom-1">
         <Tracks />
         <Equipment />
       </div>
