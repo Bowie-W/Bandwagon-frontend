@@ -5,10 +5,8 @@ import ProfilePic from "../assests/images/frank-ava.jpg";
 
 export default function Profile() {
 
-    // const bgImage = {backgroundImage: `url(${BackPic})`}
   return (
     <div className="" style={{backgroundImage: `url(${BackPic})`, backgroundSize: 'cover', height: "100vh", width: "100vw"}}>
-    {/* // <div className={bgImage }> */}
       <div className="flex ml-1">
         <div className="leftbar w-1/4 h-screen bg-red-500 items-center">
           <div className="flex justify-center">
@@ -33,7 +31,13 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="bg-blue-500/50 w-screen h-1/3 absolute bottom-1">
+      <div className="bg-blue-500/50 w-screen h-1/4 absolute bottom-1">
+        <div className="w-1/4 flex flex-col items-center justify-center pt-5">
+            <h2 className="mt-2 bg-white-100 "> Tracks</h2>
+            <h2 className="mt-2 bg-white-100 "> Instruments</h2>
+            <h2 className="mt-2 bg-white-100 "> Connections</h2>
+
+        </div>
         <Tracks />
         <Equipment />
       </div>
