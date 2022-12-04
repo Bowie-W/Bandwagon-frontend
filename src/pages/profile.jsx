@@ -2,11 +2,39 @@ import Tracks from "../components/Tracks";
 import Equipment from "../components/Equipment";
 import BackPic from "../assests/images/frank-cover.webp";
 import ProfilePic from "../assests/images/frank-ava.jpg";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Profile() {
+  const navigate = useNavigate();
+  const Serv_URL = "http://localhost:5050";
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    sessionStorage.removeItem("authToken");
+    navigate(`/`);
+  };
+
+  useEffect(() => {
+    // const token = sessionStorage.getItem("authToken");
+    // axios
+    // .get(`${Serv_URL}/profile`, {
+    //     Headers: {
+    //         Authorization: ``
+    //     }
+    // });
+  });
 
   return (
-    <div className="" style={{backgroundImage: `url(${BackPic})`, backgroundSize: 'cover', height: "100vh", width: "100vw"}}>
+    <div
+      className=""
+      style={{
+        backgroundImage: `url(${BackPic})`,
+        backgroundSize: "cover",
+        height: "100vh",
+        width: "100vw",
+      }}
+    >
       <div className="flex ml-1">
         <div className="leftbar w-1/4 h-screen bg-red-500 items-center">
           <div className="flex justify-center">
@@ -15,6 +43,9 @@ export default function Profile() {
               src={ProfilePic}
               alt="profile pic"
             />
+            <button type="click" onClick={handleLogout}>
+              Logout Test
+            </button>
           </div>
           <div className="flex">
             <div className="w-2/5 text-center ">Frank Ocean</div>
@@ -33,10 +64,9 @@ export default function Profile() {
 
       <div className="bg-blue-500/50 w-screen h-1/4 absolute bottom-1">
         <div className="w-1/4 flex flex-col items-center justify-center pt-5">
-            <h2 className="mt-2 bg-white-100 "> Tracks</h2>
-            <h2 className="mt-2 bg-white-100 "> Instruments</h2>
-            <h2 className="mt-2 bg-white-100 "> Connections</h2>
-
+          <h2 className="mt-2 bg-white-100 "> Tracks</h2>
+          <h2 className="mt-2 bg-white-100 "> Instruments</h2>
+          <h2 className="mt-2 bg-white-100 "> Connections</h2>
         </div>
         <Tracks />
         <Equipment />
