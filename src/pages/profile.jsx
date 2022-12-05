@@ -12,33 +12,38 @@ export default function Profile({ token }) {
   const navigate = useNavigate();
   const Serv_URL = "http://localhost:5050";
   const [user, setUser] = useState(null);
-  const [infoDisplay, setInfoDisplay] = useState(<Tracks/>)
+  const [infoDisplay, setInfoDisplay] = useState(<Tracks />);
 
-  //   useEffect(() => {
-  //     axios
-  //     .get(`${Serv_URL}/profile`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     }).then((response) => {
-  //         console.log(response)
-  //         setUser(response.data.user)
-  //     });
-  //   }, []);
+  console.log(token)
+    useEffect(() => {
+      axios
+      .get(`${Serv_URL}/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then((response) => {
+          console.log(response)
+          setUser(response.data)
+      });
+    }, []);
 
-  function renderTracks(){
-    setInfoDisplay(<Tracks/>)
+    useEffect(()=>{
+        console.log(user)
+    },[user])
+
+  function renderTracks() {
+    setInfoDisplay(<Tracks />);
   }
-  function renderGear(){
-    setInfoDisplay(<Gear/>)
+  function renderGear() {
+    setInfoDisplay(<Gear />);
   }
-  function renderConnections(){
-    setInfoDisplay(<Connections/>)
+  function renderConnections() {
+    setInfoDisplay(<Connections />);
   }
 
-//   useEffect(()=>{
+  //   useEffect(()=>{
 
-//   },[infoDisplay])
+  //   },[infoDisplay])
 
   return (
     <div
@@ -65,7 +70,7 @@ export default function Profile({ token }) {
           </h2>
           <p className="short_descript mx-5 mb-7 rounded-2xl">
             singer, songwriter, and rapper. His works are noted by music critics
-            for featuring avant-garde styles 
+            for featuring avant-garde styles
           </p>
 
           <div className="chips_container flex flex-col align-center h-auto mx-5 border-2 py-3">
@@ -75,13 +80,15 @@ export default function Profile({ token }) {
             <p className="text-center">placeholderChip</p>
           </div>
         </div>
-        <div className="right_window w-3/4 h-3/5 bg-blue-500 mt-5 mx-5 ">
-          <div className="flex justify-around py-5 bg-white">
-            <button onClick={renderTracks}>Tracks</button>
-            <button onClick={renderGear}>Gear</button>
-            <button onClick={renderConnections}>Connections</button>
+        <div className="w-4/5">
+          <div className="right_window w-90% h-3/5 bg-blue-500 mt-5 mx-5 ">
+            <div className="flex justify-around py-5 bg-white">
+              <button onClick={renderTracks}>Tracks</button>
+              <button onClick={renderGear}>Gear</button>
+              <button onClick={renderConnections}>Connections</button>
+            </div>
+            {infoDisplay}
           </div>
-          {infoDisplay} 
         </div>
       </div>
     </div>
