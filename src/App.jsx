@@ -31,6 +31,7 @@ export default function App() {
           <Route path="/" element={<Login logStatus={logStatus} setLogStatus={setLogStatus}/>}></Route>
           <Route path="/signup" element={<Signup/>}></Route>
           <Route path="/profile" element={<Profile token={token}/>}></Route>
+          <Route path="/profile/customize" element={<Customize/>}></Route>
         </Routes>
 
 

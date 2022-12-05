@@ -1,5 +1,6 @@
 import Tracks from "../components/Tracks";
-import Equipment from "../components/Equipment";
+import Gear from "../components/Gear";
+import Connections from "../components/Connections";
 import BackPic from "../assests/images/frank-cover.webp";
 import ProfilePic from "../assests/images/frank-ava.jpg";
 import { useNavigate } from "react-router-dom";
@@ -10,19 +11,34 @@ import { useState } from "react";
 export default function Profile({ token }) {
   const navigate = useNavigate();
   const Serv_URL = "http://localhost:5050";
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
+  const [infoDisplay, setInfoDisplay] = useState(<Tracks/>)
 
-//   useEffect(() => {
-//     axios
-//     .get(`${Serv_URL}/profile`, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     }).then((response) => {
-//         console.log(response)
-//         setUser(response.data.user)
-//     });
-//   }, []);
+  //   useEffect(() => {
+  //     axios
+  //     .get(`${Serv_URL}/profile`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }).then((response) => {
+  //         console.log(response)
+  //         setUser(response.data.user)
+  //     });
+  //   }, []);
+
+  function renderTracks(){
+    setInfoDisplay(<Tracks/>)
+  }
+  function renderGear(){
+    setInfoDisplay(<Gear/>)
+  }
+  function renderConnections(){
+    setInfoDisplay(<Connections/>)
+  }
+
+//   useEffect(()=>{
+
+//   },[infoDisplay])
 
   return (
     <div
@@ -34,38 +50,39 @@ export default function Profile({ token }) {
         width: "100vw",
       }}
     >
-      <div className="flex ml-1">
-        <div className="leftbar w-1/4 h-screen bg-red-500 items-center">
+      <div className="flex h-screen">
+        <div className="leftbar w-1/4 h-3/4 bg-red-500 items-center mt-5 ml-5 rounded">
           <div className="flex justify-center">
             <img
-              className="w-28 h-28 rounded-full my-5 object-cover"
+              className="avatar w-30 h-30 object-cover"
               src={ProfilePic}
               alt="profile pic"
             />
           </div>
-          <div className="flex">
-            <div className="w-2/5 text-center ">Frank Ocean</div>
-            <div className="w-3/5 mb-5">
-              Dog-Lover, Lover of Dogs, and a dude who loves Dogs
-            </div>
-          </div>
-          <div className="pl-5">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
-          </div>
-        </div>
-      </div>
 
-      <div className="bg-blue-500/50 w-screen h-1/4 absolute bottom-1">
-        <div className="w-1/4 flex flex-col items-center justify-center pt-5">
-          <h2 className="mt-2 bg-white-100 "> Tracks</h2>
-          <h2 className="mt-2 bg-white-100 "> Instruments</h2>
-          <h2 className="mt-2 bg-white-100 "> Connections</h2>
+          <h2 className="name w-full h-1/8 text-center text-4xl py-4">
+            Frank Ocean
+          </h2>
+          <p className="short_descript mx-5 mb-7 rounded-2xl">
+            singer, songwriter, and rapper. His works are noted by music critics
+            for featuring avant-garde styles 
+          </p>
+
+          <div className="chips_container flex flex-col align-center mx-5 py-5 border-2">
+            <p className="text-center">placeholderChip</p>
+            <p className="text-center">placeholderChip</p>
+            <p className="text-center">placeholderChip</p>
+            <p className="text-center">placeholderChip</p>
+          </div>
         </div>
-        <Tracks />
-        <Equipment />
+        <div className="w-3/4 h-3/4 bg-blue-500 mt-5 mx-5">
+          <div className="flex justify-around py-5 bg-white">
+            <button onClick={renderTracks}>Tracks</button>
+            <button onClick={renderGear}>Gear</button>
+            <button onClick={renderConnections}>Connections</button>
+          </div>
+          {infoDisplay} 
+        </div>
       </div>
     </div>
   );
