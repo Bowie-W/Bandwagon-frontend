@@ -5,14 +5,32 @@ import Login  from './pages/login'
 import Profile  from './pages/profile'
 import Signup from './pages/signup'
 import Userlist  from './pages/userlist'
+import NavHeader from './components/NavHeader'
+import NavHeaderLogged from './components/NavHeaderLogged'
+import { useEffect, useState } from "react"
 
 
 export default function App() {
+
+
+  const [logStatus, setLogStatus] = useState(false);
+  const token = sessionStorage.getItem("authToken");
+
+  useEffect(() => {
+    if (token) {
+      setLogStatus(true);
+    }
+  }, []);
+
+
+  
     return (
       <BrowserRouter>
+      {logStatus === true ? <NavHeaderLogged logStatus={logStatus} setLogStatus={setLogStatus}/> : <NavHeader/>}
         <Routes>
-          <Route path="/" element={<Login/>}></Route>
+          <Route path="/" element={<Login logStatus={logStatus} setLogStatus={setLogStatus}/>}></Route>
           <Route path="/signup" element={<Signup/>}></Route>
+          <Route path="/profile" element={<Profile token={token}/>}></Route>
         </Routes>
 
 

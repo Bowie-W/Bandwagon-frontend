@@ -1,30 +1,72 @@
-import Tracks from '../components/Tracks'
-import Equipment from '../components/Equipment'
+import Tracks from "../components/Tracks";
+import Equipment from "../components/Equipment";
+import BackPic from "../assests/images/frank-cover.webp";
+import ProfilePic from "../assests/images/frank-ava.jpg";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 
-export default function Profile (){
+export default function Profile({ token }) {
+  const navigate = useNavigate();
+  const Serv_URL = "http://localhost:5050";
+  const [user, setUser] = useState(null)
 
-    return(
-        <div className="">
-            <div className="leftbar">
-                <img alt="profile pic"/>
-                <div className="name/shortdescriptionbox">
-                    <div className="name">
-                        Name
-                    </div>
-                    <div className="short descript">
-                        short description
-                    </div>
-                </div>
-                <div className="fuller description">
-                    Fuller description Placeholder
-                </div>
+//   useEffect(() => {
+//     axios
+//     .get(`${Serv_URL}/profile`, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     }).then((response) => {
+//         console.log(response)
+//         setUser(response.data.user)
+//     });
+//   }, []);
+
+  return (
+    <div
+      className=""
+      style={{
+        backgroundImage: `url(${BackPic})`,
+        backgroundSize: "cover",
+        height: "100vh",
+        width: "100vw",
+      }}
+    >
+      <div className="flex ml-1">
+        <div className="leftbar w-1/4 h-screen bg-red-500 items-center">
+          <div className="flex justify-center">
+            <img
+              className="w-28 h-28 rounded-full my-5 object-cover"
+              src={ProfilePic}
+              alt="profile pic"
+            />
+          </div>
+          <div className="flex">
+            <div className="w-2/5 text-center ">Frank Ocean</div>
+            <div className="w-3/5 mb-5">
+              Dog-Lover, Lover of Dogs, and a dude who loves Dogs
             </div>
-            <div className="bottombar">
-                <Tracks />
-                <Equipment />
-                
-            </div>
+          </div>
+          <div className="pl-5">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book.
+          </div>
         </div>
-    )
+      </div>
 
+      <div className="bg-blue-500/50 w-screen h-1/4 absolute bottom-1">
+        <div className="w-1/4 flex flex-col items-center justify-center pt-5">
+          <h2 className="mt-2 bg-white-100 "> Tracks</h2>
+          <h2 className="mt-2 bg-white-100 "> Instruments</h2>
+          <h2 className="mt-2 bg-white-100 "> Connections</h2>
+        </div>
+        <Tracks />
+        <Equipment />
+      </div>
+    </div>
+  );
 }
