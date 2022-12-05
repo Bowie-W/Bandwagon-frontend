@@ -4,26 +4,25 @@ import BackPic from "../assests/images/frank-cover.webp";
 import ProfilePic from "../assests/images/frank-ava.jpg";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 
-export default function Profile() {
+export default function Profile({ token }) {
   const navigate = useNavigate();
   const Serv_URL = "http://localhost:5050";
+  const [user, setUser] = useState(null)
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    sessionStorage.removeItem("authToken");
-    navigate(`/`);
-  };
-
-  useEffect(() => {
-    // const token = sessionStorage.getItem("authToken");
-    // axios
-    // .get(`${Serv_URL}/profile`, {
-    //     Headers: {
-    //         Authorization: ``
-    //     }
-    // });
-  });
+//   useEffect(() => {
+//     axios
+//     .get(`${Serv_URL}/profile`, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     }).then((response) => {
+//         console.log(response)
+//         setUser(response.data.user)
+//     });
+//   }, []);
 
   return (
     <div
@@ -43,9 +42,6 @@ export default function Profile() {
               src={ProfilePic}
               alt="profile pic"
             />
-            <button type="click" onClick={handleLogout}>
-              Logout Test
-            </button>
           </div>
           <div className="flex">
             <div className="w-2/5 text-center ">Frank Ocean</div>

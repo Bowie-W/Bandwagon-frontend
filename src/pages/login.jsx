@@ -5,13 +5,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export default function Login() {
+export default function Login({logStatus, setLogStatus}) {
   const navigate = useNavigate();
   const Serv_URL = "http://localhost:5050";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [logStatus, setLogStatus] = useState(false);
+
 
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
@@ -46,9 +46,6 @@ export default function Login() {
 
   return (
     <div className="bg-gradient-to-r from-red-500 to-black-500 w-screen h-screen flex flex-col justify-start items-center">
-      <div className="w-28">
-        <Logo />
-      </div>
       <form
         onSubmit={handleLogin}
         className="w-1/4 h-3/4 p-6 border-2 border-black flex flex-col mt-6"
