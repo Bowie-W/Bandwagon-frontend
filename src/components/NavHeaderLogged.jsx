@@ -14,7 +14,7 @@ export default function NavHeaderLogged({ logStatus, setLogStatus }) {
   };
 
   return (
-    <div className="w-screen h-14 flex justify-end box-border">
+    <div className="w-full h-14 flex justify-end box-border">
       <div className="w-18 flex items-center">
         <Link to={"/"}>
           <p >Find some Players!</p>
