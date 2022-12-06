@@ -1,7 +1,25 @@
 import Tracks from '../components/Tracks'
 import Gear from '../components/Gear'
+import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 
-export default function Customize (){
+export default function Customize ({token}){
+
+    const [user, setUser] = useState(null);
+    const Serv_URL = "http://localhost:5050";
+
+    useEffect(() => {
+        axios
+        .get(`${Serv_URL}/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }).then((response) => {
+            console.log(response)
+            setUser(response.data)
+        });
+      }, []);
 
     return(<div
         className=""
