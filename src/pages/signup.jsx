@@ -25,8 +25,8 @@ export default function Signup() {
         city: city
       })
       .then((response) => {
-        if (response.data.success) {
-          navigate(`${URL}/profile`);
+        if (response) {
+          // navigate(`/profile/customize`);
         }
       });
   };
