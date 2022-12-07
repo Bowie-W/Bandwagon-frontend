@@ -57,6 +57,7 @@ export default function Customize() {
               className=" h-1/3 w-full text-center resize-none py-4"
             ></textarea>
 
+
             <div className="flex flex-col align-center">
               <p className="text-center">placeholderChip</p>
               <p className="text-center">placeholderChip</p>
