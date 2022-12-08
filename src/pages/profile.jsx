@@ -3,33 +3,34 @@ import Gear from "../components/Gear";
 import Connections from "../components/Connections";
 import BackPic from "../assests/images/frank-cover.webp";
 import ProfilePic from "../assests/images/frank-ava.jpg";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useState } from "react";
+
 
 export default function Profile({ token }) {
   const navigate = useNavigate();
   const Serv_URL = "http://localhost:5050";
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   const [infoDisplay, setInfoDisplay] = useState(<Tracks />);
 
-  console.log(token)
-    useEffect(() => {
-      axios
+//   console.log(token);
+  useEffect(() => {
+    axios
       .get(`${Serv_URL}/profile`, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }).then((response) => {
-          console.log(response)
-          setUser(response.data)
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        // console.log(response);
+        setUser(response.data);
       });
-    }, []);
+  }, []);
 
-    useEffect(()=>{
-        console.log(user)
-    },[user])
+  useEffect(() => {
+    // console.log(user);
+  }, [user]);
 
   function renderTracks() {
     setInfoDisplay(<Tracks />);
@@ -47,48 +48,43 @@ export default function Profile({ token }) {
 
   return (
     <div
-      className=""
+      className="flex flex-col md:flex-row h-screen"
       style={{
         backgroundImage: `url(${BackPic})`,
         backgroundSize: "cover",
-        height: "100%",
-        width: "100%",
+        height: "100vh",
+        width: "100vw",
       }}
     >
-      <div className="flex h-screen">
-        <div className="leftbar w-1/4 h-4/5 bg-red-500 items-center mt-5 ml-5 rounded">
-          <div className="flex justify-center">
-            <img
-              className="avatar w-30 h-30 object-cover"
-              src={ProfilePic}
-              alt="profile pic"
-            />
-          </div>
+      <div className=" w-screen h-screen bg-gray-100 pb-5 items-center rounded md:w-1/4 md:mt-5 md:ml-5">
+        <div className="flex">
+          <img
+            className="avatar w-44 h-44 ml-5 mr-4 my-5 object-cover rounded-full md:w-52 md:h-52  md:my-5"
+            src={ProfilePic}
+            alt="profile pic"
+          />
 
-          <h2 className="name w-full h-1/8 text-center text-4xl py-4">
-            Frank Ocean
-          </h2>
-          <p className="short_descript mx-5 mb-7 rounded-2xl">
-            singer, songwriter, and rapper. His works are noted by music critics
-            for featuring avant-garde styles
-          </p>
-
-          <div className="chips_container flex flex-col align-center h-auto mx-5 border-2 py-3">
-            <p className="text-center">placeholderChip</p>
-            <p className="text-center">placeholderChip</p>
-            <p className="text-center">placeholderChip</p>
-            <p className="text-center">placeholderChip</p>
+          <div className="w-full bg-gray-100">
+            <div className="chips_container bg-black-50   text-gray-50 mt-12 mr-5  h-3/5 rounded-2xl px-3 md:mb-20 py-3">
+              {user.profile_chips}
+            </div>
           </div>
         </div>
-        <div className="w-4/5">
-          <div className="right_window w-90% h-3/5 bg-blue-500 mt-5 mx-5 ">
-            <div className="flex justify-around py-5 bg-white">
-              <button onClick={renderTracks}>Tracks</button>
-              <button onClick={renderGear}>Gear</button>
-              <button onClick={renderConnections}>Connections</button>
-            </div>
-            {infoDisplay}
+        <h2 className="w-full h-1/8 text-center  text-white-50 text-3xl">
+          {user.profile_name}
+        </h2>
+        <p className="short_descript mx-5 mt-5 rounded-2xl  text-gray-50 text-center mt-3">
+          {user.profile_descript}
+        </p>
+      </div>
+      <div className="w-full md:w-4/5">
+        <div className="right_window w-full h-full bg-yellow md:my-5 md:mx-5 md:w-11/12">
+          <div className="flex justify-around py-5 bg-black-50 text-white-50">
+            <button onClick={renderTracks}>Tracks</button>
+            <button onClick={renderGear}>Gear</button>
+            {/* <button onClick={renderConnections}>Connections</button> */}
           </div>
+          {infoDisplay}
         </div>
       </div>
     </div>

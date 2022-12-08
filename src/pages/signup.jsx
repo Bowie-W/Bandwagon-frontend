@@ -6,7 +6,7 @@ import { useState } from "react";
 const { v4: uuid } = require("uuid");
 const URL = "http://localhost:5050";
 
-export default function Signup() {
+export default function Signup({setLogStatus}) {
   const navigate = useNavigate();
   
   const [username, setUsername] = useState('')
@@ -22,11 +22,15 @@ export default function Signup() {
         username: username,
         email: email,
         password: password,
-        city: city
+        city: city,
+        profile_name: username
       })
       .then((response) => {
         if (response) {
-          // navigate(`/profile/customize`);
+          console.log(response)
+          sessionStorage.authToken = response.data.token;
+          setLogStatus(true);
+          navigate(`/profile/customize`);
         }
       });
   };

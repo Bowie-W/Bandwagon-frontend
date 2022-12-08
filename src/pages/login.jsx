@@ -35,7 +35,7 @@ export default function Login({logStatus, setLogStatus}) {
         }
       })
       .catch(() => {
-        console.log("somethings fucked");
+        console.log("Error in Logging in");
         setLogStatus(false);
       });
   };

@@ -29,9 +29,9 @@ export default function App() {
       {logStatus === true ? <NavHeaderLogged logStatus={logStatus} setLogStatus={setLogStatus}/> : <NavHeader/>}
         <Routes>
           <Route path="/" element={<Login logStatus={logStatus} setLogStatus={setLogStatus}/>}></Route>
-          <Route path="/signup" element={<Signup/>}></Route>
+          <Route path="/signup" element={<Signup  setLogStatus={setLogStatus}/>}></Route>
           <Route path="/profile" element={<Profile token={token}/>}></Route>
-          <Route path="/profile/customize" element={<Customize token={token}/>}></Route>
+          <Route path="/profile/customize" element={<Customize token={token} />}></Route>
         </Routes>
 
 

@@ -31,8 +31,8 @@ export default function AvatarModal({handleModal}) {
     //       .catch((err) => console.log(err));
     //   }}
   return (
-    <div className="absolute h-screen w-screen top-0 left-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white h-1/2 w-1/5 flex flex-col items-center">
+    <div className="absolute h-screen w-screen top-0 left-0 bg-black-50 bg-opacity-50 flex justify-center items-center">
+      <div className="bg-white-50 h-1/2 w-1/5 flex flex-col items-center">
       <div className="flex justify-end w-full pr-3">
             <button onClick={handleModal}>X</button>
         </div>
