@@ -32,6 +32,7 @@ export default function App() {
           <Route path="/signup" element={<Signup  setLogStatus={setLogStatus}/>}></Route>
           <Route path="/profile" element={<Profile token={token}/>}></Route>
           <Route path="/profile/customize" element={<Customize token={token} />}></Route>
+          <Route path="/userlist" element={<Userlist />}></Route>
         </Routes>
 
 
