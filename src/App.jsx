@@ -8,6 +8,8 @@ import Userlist  from './pages/userlist'
 import NavHeader from './components/NavHeader'
 import NavHeaderLogged from './components/NavHeaderLogged'
 import { useEffect, useState } from "react"
+import {AdvancedImage} from '@cloudinary/react';
+import {Cloudinary} from "@cloudinary/url-gen";
 
 
 export default function App() {

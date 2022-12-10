@@ -23,9 +23,9 @@ export default function Tracks() {
 //   console.log(tracks)
 
   return (
-    <div className=" flex flex-col bg-gray-50 w-full h-full ">
+    <div className=" flex flex-col bg-gray-50 w-full h-full rounded-b-xl ">
       {/* Map out all tracks */}
-      <div className=" h-full flex flex-col">
+      <div className=" h-full flex flex-col ">
         <h2 className="px-5 py-5 w-1/2 text-xl md:text-5xl ">Track Name</h2>
         <ReactAudioPlayer autoPlay controls className="h-10 ml-5" />
       </div>
