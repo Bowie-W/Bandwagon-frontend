@@ -12,7 +12,6 @@ export default function Login({logStatus, setLogStatus}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
     if (token) {
@@ -32,6 +31,8 @@ export default function Login({logStatus, setLogStatus}) {
           console.log(response.data.token);
           sessionStorage.authToken = response.data.token;
           setLogStatus(true);
+          // setUser(response.data);
+          // console.log(response.data)
         }
       })
       .catch(() => {
@@ -40,9 +41,13 @@ export default function Login({logStatus, setLogStatus}) {
       });
   };
 
-  if (logStatus === true) {
-    navigate("/profile");
-  }
+
+  useEffect(()=>{
+
+    if (logStatus === true) {
+      navigate(`/profile/${username}`);
+    }
+  },[logStatus]);
 
   return (
     <div className="bg-gradient-to-r from-red-500 to-black-500 w-screen h-screen flex flex-col justify-start items-center">

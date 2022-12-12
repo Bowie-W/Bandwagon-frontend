@@ -20,7 +20,7 @@ export default function NavHeaderLogged({ logStatus, setLogStatus }) {
           <p >Find some Players!</p>
         </Link>
       </div>
-      <Link to={"/profile"}>
+      <Link to={"/profile/:username"}>
         <img src={Prof} className="h-1/2 mt-3 mx-5" />
       </Link>
       <button type="click" onClick={handleLogout} className="mr-5">

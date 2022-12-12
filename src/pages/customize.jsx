@@ -4,21 +4,25 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import BackPic from "../assests/images/frank-cover.webp";
 import AvatarModal from "../components/AvatarModal";
+import CustomBio from "../components/CustomBio";
+import { Link, useParams } from "react-router-dom";
 const { v4: uuid } = require("uuid");
+
 
 export default function Customize({ token }) {
   const Serv_URL = "http://localhost:5050";
-  const [infoDisplay, setInfoDisplay] = useState(<CustomTracks />);
+  const [infoDisplay, setInfoDisplay] = useState(<CustomBio />);
   const [modalStatus, setModalStatus] = useState(false);
   const [user, setUser] = useState({});
-  const [prof_pic, setProf_pic] = useState('')
+  const [prof_pic, setProf_pic] = useState("");
   const [prof_name, setProf_name] = useState("");
   const [descript, setDescript] = useState("");
   const [chips, setChips] = useState("");
+  // const [avatarChanged, setAvatarChanged] = useState(false)
 
   useEffect(() => {
     axios
-      .get(`${Serv_URL}/profile`, {
+      .get(`${Serv_URL}/profile/:username`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -26,24 +30,24 @@ export default function Customize({ token }) {
       .then((response) => {
         console.log(response.data);
         setUser(response.data);
-       
       });
   }, []);
 
-  useEffect(()=> {
-    setChips(user.profile_chips)
-    setProf_name(user.profile_name)
-    setDescript(user.profile_descript)
-    setProf_pic(user.profile_pic)
-
-  },[user, modalStatus])
-
+  useEffect(() => {
+    setChips(user.profile_chips);
+    setProf_name(user.profile_name);
+    setDescript(user.profile_descript);
+    setProf_pic(user.profile_pic);
+  }, [user, modalStatus]);
 
   function renderCustomTracks() {
     setInfoDisplay(<CustomTracks />);
   }
   function renderCustomGear() {
     setInfoDisplay(<CustomGear />);
+  }
+  function renderCustomBio() {
+    setInfoDisplay(<CustomBio />);
   }
 
   function handleModal() {
@@ -52,24 +56,25 @@ export default function Customize({ token }) {
     } else {
       setModalStatus(false);
     }
-    console.log(modalStatus)
   }
 
-  function updateLeftBar() {
+  function updateLeftBar(event) {
     const updatedProfInfo = {
       id: user.id,
       profile_name: prof_name,
       profile_descript: descript,
-      profile_chips: chips
-    }
+      profile_chips: chips,
+
+    };
+    // event.preventDefault()
     axios
-    .put(`${Serv_URL}/profile/customize/`, updatedProfInfo)
-    .then((res) =>{
-      console.log(res)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .put(`${Serv_URL}/profile/customize/`, updatedProfInfo)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
@@ -101,7 +106,7 @@ export default function Customize({ token }) {
               ></textarea>
             </div>
           </div>
-          <form className="flex flex-col justify-center space-between lg:justify-start justify-between items-center h-3/4 lg:h-1/2">
+          <form  onSubmit={updateLeftBar} className="flex flex-col justify-center space-between lg:justify-start justify-between items-center h-3/4 lg:h-1/2">
             <textarea
               onChange={(e) => setProf_name(e.target.value)}
               value={prof_name}
@@ -116,7 +121,6 @@ export default function Customize({ token }) {
               <button
                 type="submit"
                 className="h-10 w-20 rounded-3xl bg-blue-500"
-                onSubmit={updateLeftBar}
               >
                 Update
               </button>
@@ -125,10 +129,14 @@ export default function Customize({ token }) {
         </div>
         <div className="w-3/4 h-3/4 bg-blue-500 mt-5 mx-5 rounded-2xl">
           <div className="flex justify-around py-5 bg-white border border-black rounded-t-2xl">
+            <button onClick={renderCustomBio}>Bio</button>
             <button onClick={renderCustomTracks}>Tracks</button>
             <button onClick={renderCustomGear}>Gear</button>
           </div>
           {infoDisplay}
+          <Link to="/profile/username">
+            <button className="">Return to Profile</button>
+          </Link>
         </div>
       </div>
     </div>
