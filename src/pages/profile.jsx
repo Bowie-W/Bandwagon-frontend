@@ -13,6 +13,8 @@ export default function Profile({ token }) {
   const [user, setUser] = useState("");
   const [infoDisplay, setInfoDisplay] = useState(<Bio />);
   const [gear, setGear] = useState([]);
+  const [primedTrack, setPrimedTrack] = useState("")
+  const [tracks, setTracks] = useState({});
   const param = useParams()
 
 
@@ -47,12 +49,26 @@ export default function Profile({ token }) {
       });
   }, []);
 
+
+    useEffect(() => {
+    axios
+      .get(`${Serv_URL}/profile/tracks`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        
+        setTracks(response.data.userTracks);
+        setPrimedTrack(response.data.userTracks[1])
+      })
+  }, []);
   useEffect(() => {
     // console.log(user);
   }, [user]);
 
   function renderTracks() {
-    setInfoDisplay(<Tracks />);
+    setInfoDisplay(<Tracks tracks={tracks} primedTrack={primedTrack}/>);
   }
   function renderGear() {
     setInfoDisplay(<Gear gear={gear}/>);

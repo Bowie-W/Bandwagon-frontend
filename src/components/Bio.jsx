@@ -27,7 +27,7 @@ export default function Bio() {
   return (
     <div className=" flex flex-col bg-gray-50 w-full h-full md:rounded-b-xl ">
       <div className=" h-full flex flex-col ">
-        <p className="px-5 py-5 w-1/2  ">{biography}</p>
+        <p className="px-5 py-5 w-full  ">{biography}</p>
       </div>
     </div>
   );
