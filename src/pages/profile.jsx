@@ -15,7 +15,7 @@ export default function Profile({ token }) {
   const [gear, setGear] = useState([]);
   const param = useParams()
 
-console.log(param.username)
+
 
 //   console.log(token);
   useEffect(() => {
@@ -29,10 +29,10 @@ console.log(param.username)
         // console.log(response);
         setUser(response.data);
         const username = response.data.username
-        console.log(username)
 
       });
   }, []);
+
 
   useEffect(() => {
     axios
@@ -60,7 +60,7 @@ console.log(param.username)
 
 
   function renderBio() {
-    setInfoDisplay(<Bio />);
+    setInfoDisplay(<Bio/>);
   }
 
   //   useEffect(()=>{

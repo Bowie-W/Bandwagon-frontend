@@ -18,6 +18,7 @@ export default function Customize({ token }) {
   const [prof_name, setProf_name] = useState("");
   const [descript, setDescript] = useState("");
   const [chips, setChips] = useState("");
+  const param = useParams()
   // const [avatarChanged, setAvatarChanged] = useState(false)
 
   useEffect(() => {
@@ -41,13 +42,13 @@ export default function Customize({ token }) {
   }, [user, modalStatus]);
 
   function renderCustomTracks() {
-    setInfoDisplay(<CustomTracks />);
+    setInfoDisplay(<CustomTracks user={user}/>);
   }
   function renderCustomGear() {
-    setInfoDisplay(<CustomGear />);
+    setInfoDisplay(<CustomGear user={user}/>);
   }
   function renderCustomBio() {
-    setInfoDisplay(<CustomBio />);
+    setInfoDisplay(<CustomBio user={user}/>);
   }
 
   function handleModal() {

@@ -2,6 +2,7 @@ import ReactAudioPlayer from "react-audio-player";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Tracklist from "./Tracklist"
 
 export default function Tracks() {
   const Serv_URL = "http://localhost:5050";
@@ -17,6 +18,7 @@ export default function Tracks() {
       })
       .then((response) => {
         setTracks(response.data.userTracks);
+        console.log(response)
       });
   }, []);
 

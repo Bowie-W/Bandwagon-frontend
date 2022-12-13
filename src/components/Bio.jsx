@@ -1,31 +1,33 @@
 import ReactAudioPlayer from "react-audio-player";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
 
 export default function Bio() {
   const Serv_URL = "http://localhost:5050";
-  const [tracks, setTracks] = useState([]);
   const token = sessionStorage.getItem("authToken");
+  const param = useParams()
 
+  const [biography, setBiography] = useState("");
+  
   useEffect(() => {
     axios
-      .get(`${Serv_URL}/profile/:username`, {
+      .get(`${Serv_URL}/profile/${param.username}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setTracks(response.data.userTracks);
+        // console.log(response);
+        setBiography(response.data.biography);
       });
   }, []);
-
-//   console.log(tracks)
 
   return (
     <div className=" flex flex-col bg-gray-50 w-full h-full md:rounded-b-xl ">
       <div className=" h-full flex flex-col ">
-        <h2 className="px-5 py-5 w-1/2 text-xl md:text-5xl ">Bio</h2>
+        <p className="px-5 py-5 w-1/2  ">{biography}</p>
       </div>
     </div>
   );
