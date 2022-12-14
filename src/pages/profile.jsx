@@ -60,15 +60,25 @@ export default function Profile({ token }) {
       .then((response) => {
         
         setTracks(response.data.userTracks);
-        setPrimedTrack(response.data.userTracks[1])
+        setPrimedTrack(response.data.userTracks[0])
       })
   }, []);
   useEffect(() => {
     // console.log(user);
   }, [user]);
 
+  useEffect(() => {
+    // renderTracks()
+    axios
+    .get(`${Serv_URL}/profile/tracks/single/${primedTrack.id}`)
+    .then((response) => {
+        console.log(response)
+    })
+  },[primedTrack])
+  
+
   function renderTracks() {
-    setInfoDisplay(<Tracks tracks={tracks} primedTrack={primedTrack}/>);
+    setInfoDisplay(<Tracks tracks={tracks} primedTrack={primedTrack} setPrimedTrack={setPrimedTrack}/>);
   }
   function renderGear() {
     setInfoDisplay(<Gear gear={gear}/>);

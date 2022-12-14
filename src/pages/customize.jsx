@@ -103,7 +103,8 @@ export default function Customize({ token }) {
               <textarea
                 onChange={(e) => setChips(e.target.value)}
                 value={chips}
-                className="chips_container bg-black-50  h-3/5 rounded-2xl  resize-none px-3 py-3 text-gray-50 mt-12 mr-5 md:mr-0 md:text-center md:mt-0 md:pt-2 "
+                placeholder='Place Instruments/Genres you play here!'
+                className="chips_container bg-black-50  h-4/5 rounded-2xl overflow-y-scroll scrollbar-thin w-full  resize-none px-3 py-3 text-gray-50 mt-12 mr-5 md:mr-0 md:text-center md:mt-0 md:pt-2 "
               ></textarea>
             </div>
           </div>
@@ -111,17 +112,18 @@ export default function Customize({ token }) {
             <textarea
               onChange={(e) => setProf_name(e.target.value)}
               value={prof_name}
-              className="w-full h-1/4 text-center resize-none text-4xl py-4"
+              className="w-full h-1/4 text-center text-gray-50 bg-black-50 border border-white-50  resize-none text-4xl py-2"
             ></textarea>
             <textarea
               onChange={(e) => setDescript(e.target.value)}
               value={descript}
-              className=" h-1/3 w-full text-center resize-none py-4"
+              placeholder='Give people a tagline to remember you by !'
+              className=" h-1/3 w-full text-center resize-none py-4 bg-black-50"
             ></textarea>
             <div className="">
               <button
                 type="submit"
-                className="h-10 w-20 rounded-3xl bg-blue-500"
+                className="h-10 w-20 rounded-3xl bg-blue-500 lg:mt-5"
               >
                 Update
               </button>

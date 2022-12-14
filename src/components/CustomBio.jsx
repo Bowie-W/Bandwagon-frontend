@@ -48,7 +48,7 @@ export default function CustomBio() {
           value={customBiography}
           onChange={(e) => setCustomBiography(e.target.value)}
           placeholder="Tell us about yourself!"
-          className="px-5 py-5 w-full h-5/6 resize-none text-base md:text-lg "
+          className="px-5 py-5 w-full h-5/6 bg-black-50 text-gray-50 resize-none text-base md:text-lg "
         ></textarea>
         <button type="submit" className="text-white-50 bg-purple-50 mt-5 p-2 rounded-full w-1/3">
         Customize

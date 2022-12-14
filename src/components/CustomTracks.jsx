@@ -7,7 +7,7 @@ import Tracklist from "./Tracklist"
 const { v4: uuid } = require("uuid");
 
 export default function CustomTracks({user}) {
-  const [trackname, setTrackName] = useState("Pink and White");
+  const [trackname, setTrackName] = useState("");
   const [trackDescript, setTrackDescript] = useState("");
   const [trackAudio, setTrackAudio] = useState("");
   const [trackUrl, setTrackUrl] = useState('')
@@ -59,9 +59,10 @@ export default function CustomTracks({user}) {
       <form className="flex">
         <div className="flex flex-col w-1/2">
           <textarea
+          placeholder="Name of Track Here"
             onChange={(e) => setTrackName(e.target.value)}
             value={trackname}
-            className="text-5xl px-5 py-5 w-2/3 resize-none mt-5 ml-5 rounded"
+            className="text-xl px-5 py-5 w-2/3 bg-black-50 resize-none mt-5 ml-5 rounded"
           ></textarea>
           <div className="w-1/2 flex flex-col mt-5 ml-5">
             <input

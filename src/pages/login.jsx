@@ -50,7 +50,7 @@ export default function Login({logStatus, setLogStatus}) {
   },[logStatus]);
 
   return (
-    <div className="bg-gradient-to-r from-red-500 to-black-500 w-screen h-screen flex flex-col justify-start items-center">
+    <div className="bg-gradient-to-r from-black-50 to-purple-50 text-white-50 w-screen h-screen flex flex-col justify-start items-center">
       <form
         onSubmit={handleLogin}
         className="w-1/4 h-3/4 p-6 border-2 border-black flex flex-col mt-6"
@@ -76,7 +76,7 @@ export default function Login({logStatus, setLogStatus}) {
         </div>
         <div className="flex flex-col items-center">
           <h2 className="mt-4">Or</h2>
-          <button className="bg-white mt-2 w-full p-2 rounded-full">
+          <button className="bg-white-50 text-black-50 mt-2 w-full p-2 rounded-full">
             Sign in with Google
           </button>
         </div>

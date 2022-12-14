@@ -22,7 +22,8 @@ export default function Gear({ gear }) {
   return (
     <div className="bg-gray-50 w-full h-1/2 md:h-full md:rounded-b-xl ">
       <Slider {...settings}>
-      {gear.map((gear_info) => (
+      {gear.length !== 0 
+          ? gear.map((gear_info) => (
         <div className="flex " key={gear_info.id}>
           <div className="flex">
           <img
@@ -35,7 +36,7 @@ export default function Gear({ gear }) {
           </div>
           </div>
         </div>
-      ))}
+      )):<div>You got no Gear brew</div>}
       </Slider>
     </div>
   );
