@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import jwtDecode from "jwt-decode";
 
 export default function Login({logStatus, setLogStatus}) {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export default function Login({logStatus, setLogStatus}) {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [tokenInfo, setTokenInfo] = useState({})
 
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
@@ -30,9 +32,13 @@ export default function Login({logStatus, setLogStatus}) {
         if (response.status === 200) {
           console.log(response.data.token);
           sessionStorage.authToken = response.data.token;
+          const grabbedToken = response.data.token
+          const decodedToken = jwtDecode(grabbedToken)
+          setTokenInfo(decodedToken)
+
           setLogStatus(true);
           // setUser(response.data);
-          // console.log(response.data)
+          console.log(response.data)
         }
       })
       .catch(() => {
@@ -41,11 +47,12 @@ export default function Login({logStatus, setLogStatus}) {
       });
   };
 
+  
 
   useEffect(()=>{
 
     if (logStatus === true) {
-      navigate(`/profile/${username}`);
+      navigate(`/profile/${tokenInfo.id}`);
     }
   },[logStatus]);
 
@@ -59,14 +66,15 @@ export default function Login({logStatus, setLogStatus}) {
           <h2 className="text-center text-3xl">Hop On!</h2>
           <label htmlFor="username">Username:</label>
           <input
-            className="mb-1 w-full"
+            className="mb-1 w-full text-black-50"
             name="username"
             onChange={(e) => setUsername(e.target.value)}
           ></input>
           <label htmlFor="password">Password:</label>
           <input
-            className="w-full"
+            className="w-full text-black-50"
             name="password"
+            type="password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
           <button type="submit">Log On!</button>

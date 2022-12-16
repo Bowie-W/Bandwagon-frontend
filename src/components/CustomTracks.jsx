@@ -55,16 +55,16 @@ export default function CustomTracks({user}) {
   }
 
   return (
-    <div onSubmit={uploadTrack} className=" flex flex-col bg-red-500 w-full h-3/4 ">
+    <div onSubmit={uploadTrack} className=" flex flex-col bg-gray-50 w-full h-full ">
       <form className="flex">
-        <div className="flex flex-col w-1/2">
+        <div className="flex flex-col w-full">
           <textarea
           placeholder="Name of Track Here"
             onChange={(e) => setTrackName(e.target.value)}
             value={trackname}
-            className="text-xl px-5 py-5 w-2/3 bg-black-50 resize-none mt-5 ml-5 rounded"
+            className="text-xl px-5 text-gray-50 py-5 w-5/6 bg-black-50 resize-none mt-5 ml-5 rounded"
           ></textarea>
-          <div className="w-1/2 flex flex-col mt-5 ml-5">
+          <div className="w-5/6 flex justify-between mt-5 ml-5">
             <input
               type="file"
               name="audio"
@@ -76,19 +76,13 @@ export default function CustomTracks({user}) {
             <button
               type="submit"
               onClick={cloudUpload}
-              className="h-10 w-36 rounded-3xl bg-blue-500 mt-5"
+              className="h-10 w-36 rounded-3xl text-white-50 bg-purple-50 mt-5"
             >
-              Add Tracks
+              Add Track
             </button>
           </div>
         </div>
-        <div className="w-1/2 h-full bg-yellow-500 flex justify-center items-center">
-          <textarea
-            onChange={(e) => setTrackDescript(e.target.value)}
-            value={trackDescript}
-            className="h-3/4 w-3/4"
-          ></textarea>
-        </div>
+        
       </form>
     </div>
   );

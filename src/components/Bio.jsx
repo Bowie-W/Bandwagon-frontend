@@ -13,21 +13,17 @@ export default function Bio() {
   
   useEffect(() => {
     axios
-      .get(`${Serv_URL}/profile/${param.username}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`${Serv_URL}/profile/${param.undefined}`)
       .then((response) => {
         // console.log(response);
         setBiography(response.data.biography);
       });
-  }, []);
+  }, [param.undefined]);
 
   return (
-    <div className=" flex flex-col bg-gray-50 w-full h-full md:rounded-b-xl ">
+    <div className=" flex flex-col bg-gray-100 w-full h-full md:rounded-b-xl ">
       <div className=" h-full flex flex-col ">
-        <p className="px-5 py-5 w-full  ">{biography}</p>
+        <p className="px-5 py-5 w-full text-white-50 ">{biography}</p>
       </div>
     </div>
   );

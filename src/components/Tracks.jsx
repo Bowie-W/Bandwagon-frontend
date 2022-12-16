@@ -30,12 +30,15 @@ export default function Tracks({ tracks, primedTrack, setPrimedTrack }) {
 
   useEffect(() => {
 
-    console.log(primedTrack.id)
-       axios
-    .get(`${Serv_URL}/profile/tracks/single/${primedTrack.id}`)
-    .then((response) => {
-        console.log(response)
-    })
+    // console.log(primedTrack.id)
+
+    if (tracks.length !== 0){
+      axios
+      .get(`${Serv_URL}/profile/tracks/single/${primedTrack.id}`)
+      .then((response) => {
+          console.log(response)
+      })
+    }
 
   }, [primedTrack]);
 
@@ -54,17 +57,17 @@ export default function Tracks({ tracks, primedTrack, setPrimedTrack }) {
 
 
   return (
-    <div className=" flex bg-gray-50 w-full h-full md:rounded-b-xl ">
+    <div className=" flex flex-col md:flex-row bg-gray-100 w-full h-full md:rounded-b-xl ">
       {/* Map out all tracks */}
-      <div className="flex items-center w-1/2">
-        <div className=" h-5/6 w-full  lg:h-5/6 flex flex-col ">
+      <div className="flex ml-5 w-10/12 items-center  md:w-1/2">
+        <div className=" h-5/6 w-full md:mt-16 lg:mt-56 lg:h-5/6 flex flex-col  ">
           {tracks?.length !== 0 ? (
-            <h2 className="px-5 w-full mb-10 text-xl md:text-3xl ">
+            <h2 className="pl-5  w-full text-3xl mt-4 lg:mt-5 text-white-50  text-xl md:text-3xl ">
               {newTrack?.name}
             </h2>
           ) : (
             <div>
-              <h2 className="px-5 w-full mb-10 text-xl md:text-3xl ">
+              <h2 className="pl-5 w-full mb-10 text-xl text-white-50 md:text-3xl ">
                 Looks like you don't have any Tracks Uploaded T_T
               </h2>
               <Link
@@ -82,13 +85,13 @@ export default function Tracks({ tracks, primedTrack, setPrimedTrack }) {
             <ReactAudioPlayer
               controls
               src={newTrack?.track_audio}
-              className="h-10 w-full lg:w-5/6 ml-5 lg:mt-14"
+              className=" w-5/6 lg:w-5/6 ml-5 mt-5 md:mt-16 lg:mt-5"
             />
           ) : null}
         </div>
       </div>
-      <div className="w-1/2 h-full flex justify-center items-center">
-      <div className="border w-5/6 h-5/6 overflow-scroll scrollbar-thin">
+      <div className="w-full md:w-1/2 h-full flex justify-center items-center">
+      <div className="border w-5/6 overflow-scroll scrollbar-thin rounded-2xl">
         {tracks !== undefined
           ? tracks.map((track_info) => (
               <div

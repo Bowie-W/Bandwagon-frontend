@@ -20,7 +20,7 @@ export default function Gear({ gear }) {
   };
 
   return (
-    <div className="bg-gray-50 w-full h-1/2 md:h-full md:rounded-b-xl ">
+    <div className="bg-gray-100 text-white-50 w-full h-full md:h-full md:rounded-b-xl md:pt-16">
       <Slider {...settings}>
       {gear.length !== 0 
           ? gear.map((gear_info) => (
