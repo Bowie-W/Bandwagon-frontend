@@ -19,7 +19,6 @@ export default function AvatarModal({ handleModal, user }) {
     formData.append("upload_preset", "Testing");
     formData.append("apikey", 933797642957498);
     formData.append("timestamp", Date.now());
-    // time stamp and apikey as Number
 
     axios
       .post("https://api.cloudinary.com/v1_1/dl2liojkl/image/upload", formData)
@@ -40,13 +39,13 @@ export default function AvatarModal({ handleModal, user }) {
         handleModal();
       })
       .catch((error) => {
-        console.log(error);
+        console.log('error in uploading image to database');
       });
   };
 
   return (
     <div className="absolute h-screen w-screen top-0 left-0 bg-black-50 bg-opacity-50 flex justify-center items-center">
-      <form className="bg-gray-100 h-1/2 w-1/5 flex flex-col items-center rounded-2xl">
+      <form className="bg-gray-100 h-3/4 w-1/2 md:h-1/2 md:w-1/5 flex flex-col items-center rounded-2xl">
         <div className="flex w-full">
           <div className="w-4/5"></div>
           <div className=" text-center w-7 mt-2 ml-4 rounded-full text-white-50 border border-white-50 bg-purple-50">

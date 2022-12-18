@@ -1,7 +1,6 @@
-import ReactAudioPlayer from "react-audio-player";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 export default function Bio() {
@@ -15,7 +14,6 @@ export default function Bio() {
     axios
       .get(`${Serv_URL}/profile/${param.undefined}`)
       .then((response) => {
-        // console.log(response);
         setBiography(response.data.biography);
       });
   }, [param.undefined]);

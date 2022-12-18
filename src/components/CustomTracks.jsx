@@ -1,9 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import ReactAudioPlayer from "react-audio-player";
-import TrackModal from "./TrackModal";
-import Tracklist from "./Tracklist"
 const { v4: uuid } = require("uuid");
 
 export default function CustomTracks({user}) {
@@ -29,7 +26,6 @@ export default function CustomTracks({user}) {
     .post("https://api.cloudinary.com/v1_1/dl2liojkl/video/upload", formData)
     .then((res) => {
       setTrackUrl(res.data.url)
-      console.log(res.data.url)
     })
   };
 
@@ -55,7 +51,7 @@ export default function CustomTracks({user}) {
   }
 
   return (
-    <div onSubmit={uploadTrack} className=" flex flex-col bg-gray-50 w-full h-full ">
+    <div onSubmit={uploadTrack} className=" flex flex-col bg-gray-50 w-full md:h-full ">
       <form className="flex">
         <div className="flex flex-col w-full">
           <textarea

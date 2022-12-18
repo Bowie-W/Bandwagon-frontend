@@ -26,6 +26,7 @@
     top: 50%;
     margin-left: 40px;
     margin-right: 50px;
+    z-index: 5;
 
     display: block;
 
@@ -128,7 +129,7 @@
 .slick-dots
 {
     position: absolute;
-    bottom: 0px;
+    bottom: -20px;
 
     display: block;
 

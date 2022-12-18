@@ -1,4 +1,3 @@
-import Logo from "../components/Logo";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -13,6 +12,8 @@ export default function Login({logStatus, setLogStatus}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [tokenInfo, setTokenInfo] = useState({})
+  const [passerror, setPassError] = useState(false)
+  const [userError, setUserError] = useState(false)
 
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
@@ -30,20 +31,28 @@ export default function Login({logStatus, setLogStatus}) {
       })
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data.token);
           sessionStorage.authToken = response.data.token;
           const grabbedToken = response.data.token
           const decodedToken = jwtDecode(grabbedToken)
           setTokenInfo(decodedToken)
 
           setLogStatus(true);
-          // setUser(response.data);
-          console.log(response.data)
-        }
+        } 
       })
-      .catch(() => {
-        console.log("Error in Logging in");
+      .catch((response) => {
+
+        if (response.response.status === 400) {
+          setUserError(true)
+        }
+
+        else if (response.response.status === 403) {
+          setUserError(false)
+          setPassError(true)
+
+        }
+
         setLogStatus(false);
+        
       });
   };
 
@@ -64,19 +73,21 @@ export default function Login({logStatus, setLogStatus}) {
       >
         <div className="border-b-2 pb-4">
           <h2 className="text-center text-3xl">Hop On!</h2>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username" >Username:</label>
           <input
-            className="mb-1 w-full text-black-50"
+            className="mb-1 w-full text-black-50 rounded-xl pl-2"
             name="username"
             onChange={(e) => setUsername(e.target.value)}
           ></input>
+          {userError && <p><span className="text-red-500">User not Found </span></p>}
           <label htmlFor="password">Password:</label>
           <input
-            className="w-full text-black-50"
+            className="w-full text-black-50 rounded-xl pl-2"
             name="password"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
+          {passerror && <p><span className="text-red-500">Incorrect Password </span></p>}
           <button type="submit">Log On!</button>
           <Link to={"/signup"}>
             <p className="mt-5"> New? Sign up here!</p>

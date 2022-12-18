@@ -1,13 +1,11 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import ProfilePic from "../assests/images/user.png";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 export default function Userlist({ token }) {
   const Serv_URL = "http://localhost:5050";
   const [userlist, setUserlist] = useState([]);
   const [userInfo, setUserInfo] = useState({});
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -17,7 +15,6 @@ export default function Userlist({ token }) {
         },
       })
       .then((response) => {
-        console.log(response);
         setUserlist(response.data);
       });
   }, []);
@@ -27,14 +24,10 @@ export default function Userlist({ token }) {
     axios.get(`${Serv_URL}/users/${user_ID}`).then((response) => {
       setUserInfo(response.data);
     });
-
-    console.log(userInfo);
-
-    // console.log(event.currentTarget.attributes.value.value)
   };
 
   return (
-    <div className="w-full h-screen bg-gray-100">
+    <div className="w-full h-screen pt-20 bg-gray-100">
       <h1 className="userlist-Title text-white-50 text-center text-4xl pt-5 md:w-1/2 md:pt-10 md:ml-24 lg:ml-36 md:text-left">
         Artists in Vancouver
       </h1>
@@ -43,7 +36,7 @@ export default function Userlist({ token }) {
           <ul className="userlist flex flex-wrap overflow-y-scroll scrollbar-thin h-screen w-5/6 mt-5 md:mt-0 text-white-50 py-10 px-5 md:px-5 bg-black-50 h-4/5 rounded-2xl md:mt-10 md:w-4/5">
             {userlist.map((userlist_info) => (
               <li
-                className="flex flex-col mb-10 w-full h-1/2 md:h-3/5 md:w-1/2"
+                className="flex flex-col mb-5 w-full h-1/2 md:h-3/5 md:w-1/2"
                 onClick={goToUser}
                 value={userlist_info.id}
               >
@@ -60,8 +53,11 @@ export default function Userlist({ token }) {
                     />
                   </Link>
                   <div className="user-info-container w-1/2 flex flex-col justify-start ml-5">
-                    <h2 className="text-white-50 text-2xl h-1/4 ">
+                    <h2 className="text-white-50 md:hidden h-1/4 ">
                       {userlist_info.profile_chips}
+                    </h2>
+                    <h2 className="text-white-50 hidden md:flex text-2xl h-1/4  border-b border-t border-purple-50 ">
+                      {userlist_info.profile_name}
                     </h2>
                     <p className=" hidden mt-2 md:flex md:mt-5 md:h-3/4 md:w-full lg:w-11/12 break-normal">
                       {userlist_info.profile_chips}
@@ -74,8 +70,6 @@ export default function Userlist({ token }) {
                     </h1>
               </li>
             ))}
-
-            {/* Some Mapping Function that takes the DB info and fills out <li's> */}
           </ul>
         </div>
       </div>

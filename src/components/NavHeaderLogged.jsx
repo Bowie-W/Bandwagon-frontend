@@ -31,12 +31,12 @@ export default function NavHeaderLogged({ logStatus, setLogStatus, token }) {
 
   const param = useParams()
   return (
-    <div className="w-full fixed h-14 bg-black-50 flex justify-end box-border text-white-50">
-      <div className="w-18 flex items-center">
-        <Link to={"/userlist"} className='mr-32 md:mr-16'>
-          <p className="text-white-50 bg-purple-50 p-1 rounded-full ">Find some Players!</p>
+    <div className="w-full max-w-screen z-10 fixed h-14 bg-gray-100 flex justify-end box-border text-white-50">
+      
+        <Link to={"/userlist"} className='mr-32  md:mr-16'>
+          <p className="text-white-50 bg-purple-50 p-1 mt-3 w-full rounded-full ">Find some Players!</p>
         </Link>
-      </div>
+
       <Link to={`/profile/${tokenInfo.id}`}>
         <img src={Icon} className="h-2/3 mt-3 mx-5 rounded-full" />
       </Link>
