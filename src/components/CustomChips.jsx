@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function CustomChips({ handleChipbox }) {
+export default function CustomChips({ handleChipbox, user }) {
 
     const userGenreChips = []
     const userInstrChips = []
 
     const genreChips = ['Jazz', 'Classical', 'Pop', 'Rock', 'Electronic', 'Country', 'Hip-Hop', 'R&B', 'Blues', 'Ambient', 'Folk', 'Metal', 'Punk', 'Latin']
     const instrChips = ['Vocals', 'Piano', 'Guitar', 'Trumpet', 'Saxophone', 'Bass', 'Flute', 'Clarinet',' Drums', 'Multi-Instrumental']
+
 
     const addGenreChip = (event) =>{
         event.preventDefault()
@@ -39,7 +40,32 @@ export default function CustomChips({ handleChipbox }) {
         console.log(userInstrChips)
     }
 
+    const sendChips = (event) =>{
+        event.preventDefault()
+        const genreChipsString = userGenreChips.toString()
+        console.log(genreChipsString)
+        const instrChipsString = userInstrChips.toString()
+        
+    const chipInfo = {
+        id:user.id,
+        genreChips:genreChipsString,
+        instrChips:instrChipsString
 
+    }
+
+        axios
+        .put("http://localhost:5050/profile/customize/chips", chipInfo)
+        .then((res) => {
+            console.log(res)
+        }) 
+        .catch((error) => {
+            console.log(error);
+          });
+
+
+    }
+
+console.log(user)
  
 
   return (
@@ -71,7 +97,7 @@ export default function CustomChips({ handleChipbox }) {
           </div>
         </div>
         <div className="w-11/12 flex justify-between mt-2 border-t border-white-50">
-          <button type="submit" className=" text-center rounded-2xl mt-1 text-white-50 px-3 py-1 bg-purple-50">
+          <button type="click" onClick={sendChips} className=" text-center rounded-2xl mt-1 text-white-50 px-3 py-1 bg-purple-50">
             Save Changes
           </button>
           <div className=" text-center px-2 mt-2 ml-4 rounded-full text-white-50 border border-white-50">

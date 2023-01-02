@@ -15,6 +15,8 @@ export default function Profile({ token }) {
   const [primedTrack, setPrimedTrack] = useState("")
   const [tokenInfo, setTokenInfo] = useState('')
   const [tracks, setTracks] = useState({});
+  const [genreChips, setGenreChips] = useState([])
+  const [instrChips, setInstrChips] = useState([])
   const param = useParams()
 
 
@@ -23,6 +25,12 @@ export default function Profile({ token }) {
       .get(`${Serv_URL}/profile/${param.undefined}`)
       .then((response) => {
         setUser(response.data);
+        const genreChipsString = response.data.genreChips
+        const genreChipsArray = genreChipsString.split(',')
+        const instrChipsString = response.data.instrChips
+        const instrChipsArray = instrChipsString.split(',')
+        setGenreChips(genreChipsArray)
+        setInstrChips(instrChipsArray)
         const username = response.data.username
 
       }).then(setInfoDisplay(<Bio/>));
@@ -61,6 +69,7 @@ export default function Profile({ token }) {
   useEffect(() => {
   }, [user]);
 
+  console.log(user)
 
 
   useEffect(() => {
@@ -99,9 +108,16 @@ export default function Profile({ token }) {
           />
 
           <div className="w-full md:h-1/3 bg-black-50">
-            <div className="chips_container bg-black-50  h-3/5 rounded-2xl px-3 py-10 text-white-50 mt-12 mr-5 md:mr-0 md:text-center md:mt-0 md:pt-0 pb-2 ">
-              {user.profile_chips}
-            </div>
+          {genreChips.map((genreChip) =>(
+                 <button type="click" className=" text-center rounded-2xl text-white-50 px-3 py-1 bg-purple-50 mr-2 my-1">
+                 {genreChip}
+               </button>
+            ))}
+            {instrChips.map((genreChip) =>(
+                 <button type="click" className=" text-center rounded-2xl text-white-50 px-3 py-1 bg-purple-50 mr-2 my-1">
+                 {genreChip}
+               </button>
+            ))}
           </div>
         </div>
         <h2 className="w-full h-1/8 text-center break-words px-5 text-white-50 text-3xl">
