@@ -3,6 +3,7 @@ import CustomGear from "../components/CustomGear";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import AvatarModal from "../components/AvatarModal";
+import CustomChips from "../components/CustomChips";
 import CustomBio from "../components/CustomBio";
 import { Link, useParams } from "react-router-dom";
 
@@ -10,6 +11,7 @@ export default function Customize({ token }) {
   const Serv_URL = "http://localhost:5050";
   const [infoDisplay, setInfoDisplay] = useState(<CustomBio />);
   const [modalStatus, setModalStatus] = useState(false);
+  const [chipboxStatus, setChipboxStatus] = useState(false)
   const [user, setUser] = useState({});
   const [prof_pic, setProf_pic] = useState("");
   const [prof_name, setProf_name] = useState("");
@@ -49,6 +51,14 @@ export default function Customize({ token }) {
     }
   }
 
+  function handleChipbox() {
+    if (chipboxStatus === false) {
+      setChipboxStatus(true);
+    } else {
+      setChipboxStatus(false);
+    }
+  }
+
   function updateLeftBar(event) {
     const updatedProfInfo = {
       id: user.id,
@@ -65,6 +75,7 @@ export default function Customize({ token }) {
   return (
     <div className="bg-gray-100 h-full pt-14">
       {modalStatus && <AvatarModal handleModal={handleModal} user={user} />}
+      {chipboxStatus && <CustomChips handleChipbox={handleChipbox} user={user} />}
       <div className="flex h-screen flex-col md:flex-row">
         <div className="leftbar w-screen h-screen bg-black-50 pb-5 items-center md:rounded-xl md:w-1/4 md:mt-5 md:ml-5 md:h-5/6 md:pb-0">
           <div className="flex md:flex-col lg:justify-center lg:items-center">
@@ -80,16 +91,14 @@ export default function Customize({ token }) {
               >
                 Change Pic
               </button>
+              <button
+            onClick={handleChipbox}
+            className="h-10 w-20 rounded-3xl text-white-50 mb-1 md:mt-0 bg-purple-50 lg:mt-5"
+            >
+              Edit Tags
+            </button>
             </div>
 
-            <div className="w-full md:h-1/3 md:px-5 bg-black-50 flex justify-center">
-              <textarea
-                onChange={(e) => setChips(e.target.value)}
-                value={chips}
-                placeholder="Place Instruments/Genres you play here!"
-                className="chips_container bg-black-50  border border-white-50 h-2/5 rounded-2xl overflow-y-scroll scrollbar-thin w-full  resize-none px-3 py-0 text-gray-50 mt-12 mr-5 md:mr-0 md:text-center md:mt-0 md:pt-2 "
-              ></textarea>
-            </div>
           </div>
           <form
             onSubmit={updateLeftBar}

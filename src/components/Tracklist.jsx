@@ -34,6 +34,7 @@ export default function Tracklist({primedTrack, setPrimedTrack}) {
 
   console.log(primedTrack);
 
+  console.log(tracks)
 
 
   return (

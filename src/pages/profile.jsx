@@ -36,6 +36,7 @@ export default function Profile({ token }) {
         
 
   },[param.undefined])
+  
 
 
   useEffect(() => {
@@ -83,6 +84,7 @@ export default function Profile({ token }) {
     setInfoDisplay(<Bio/>);
   }
 
+  console.log(tracks)
 
   return (
     <div

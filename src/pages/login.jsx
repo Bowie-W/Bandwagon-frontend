@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
 
-export default function Login({logStatus, setLogStatus}) {
+export default function Login({logStatus, setLogStatus, userID}) {
   const navigate = useNavigate();
   const Serv_URL = "http://localhost:5050";
 
@@ -61,7 +61,7 @@ export default function Login({logStatus, setLogStatus}) {
   useEffect(()=>{
 
     if (logStatus === true) {
-      navigate(`/profile/${tokenInfo.id}`);
+      navigate(`/profile/${userID}`);
     }
   },[logStatus]);
 

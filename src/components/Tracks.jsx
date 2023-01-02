@@ -36,6 +36,7 @@ export default function Tracks({ tracks, primedTrack, setPrimedTrack, tokenInfo 
 
   console.log(param.undefined)
   console.log(tokenInfo.id)
+  console.log(tracks)
 
   return (
     <div className=" flex flex-col md:flex-row bg-gray-100 w-full h-full md:rounded-b-xl ">
