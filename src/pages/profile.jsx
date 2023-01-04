@@ -102,22 +102,25 @@ export default function Profile({ token }) {
       <div className="leftbar w-screen h-screen bg-black-50 pb-5 items-center md:rounded-xl md:w-1/4 md:mt-5 md:ml-5 md:h-5/6 md:pb-0">
         <div className="flex md:flex-col md:justify-center md:items-center">
           <img
-            className="avatar w-48 h-48 md:w-28 md:h-28 lg:w-44 lg:h-44 ml-5 mr-4 my-5 object-cover rounded-full md:w-36 md:h-36  md:my-5"
+            className="avatar w-1/2 h-1/2 md:w-28 md:h-28 lg:w-44 lg:h-44 ml-5 mr-4 my-5 object-cover rounded-xl md:w-36 md:h-36  md:my-5"
             src={user.profile_pic}
             alt="profile pic"
           />
 
-          <div className="w-full md:h-1/3 bg-black-50">
-          {genreChips.map((genreChip) =>(
-                 <button type="click" className=" text-center rounded-2xl text-white-50 px-3 py-1 bg-purple-50 mr-2 my-1">
+          <div className="w-full flex flex-col justify-center md:items-center md:h-1/3 bg-black-50">
+            <div>
+            {genreChips.map((genreChip) =>(
+                 <button type="click" className=" text-center rounded-2xl text-white-50 px-3 py-1 bg-gray-50 mr-2 my-1">
                  {genreChip}
                </button>
             ))}
-            {instrChips.map((genreChip) =>(
+            </div>
+          <div> {instrChips.map((instrChip) =>(
                  <button type="click" className=" text-center rounded-2xl text-white-50 px-3 py-1 bg-purple-50 mr-2 my-1">
-                 {genreChip}
+                 {instrChip}
                </button>
-            ))}
+            ))}</div>
+           
           </div>
         </div>
         <h2 className="w-full h-1/8 text-center break-words px-5 text-white-50 text-3xl">

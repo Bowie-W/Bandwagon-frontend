@@ -7,12 +7,8 @@ export default function NavHeader() {
 
     
   return (
-    <div className="w-screen h-14 flex justify-center">
-      <div className="w-10 h-full">
-        <Link to={"/"}>
-          <img src={LogoPic} alt="BWG" className=" " />
-        </Link>
-      </div>
+    <div className="w-screen bg-black-50 h-14 flex justify-center">
+     
     </div>
   );
 }

@@ -26,12 +26,12 @@ export default function Gear({ gear, tokenInfo }) {
         {gear.length !== 0 ? (
           gear.map((gear_info) => (
             <div className=" " key={gear_info.id}>
-              <div className="flex flex-col ml-12 w-full md:ml-0  md:flex-row">
+              <div className="flex flex-col ml-12 w-full items-center md:ml-0  md:flex-row">
                 <img
                   className=" w-32 h-32 md:h-56 md:w-56 lg:w-64 lg:h-64 lg:w-64 mt-5 mx-5 md:pl-10 object-cover"
                   src={gear_info.gear_pic}
                 />
-                <div className="w-1/2 mt-5 lg:ml-20 ">
+                <div className="w-2/3 mt-5 lg:ml-20 ">
                   <h1 className="name mb-5 ml-5 text-xl"> Instrument Name</h1>
                   <p className="description ml-5">
                     {gear_info.gear_description}

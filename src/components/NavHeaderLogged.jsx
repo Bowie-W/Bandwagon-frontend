@@ -58,18 +58,18 @@ export default function NavHeaderLogged({userID, logStatus, setLogStatus, token 
   console.log(userID)
 
   return (
-    <div className="w-full max-w-screen z-10 fixed h-14 bg-gray-100 flex justify-end box-border text-white-50">
+    <div className="w-full max-w-screen z-10 fixed h-14 bg-gray-100 flex justify-between md:justify-end items-center box-border text-white-50">
       
-        <Link to={"/userlist"} className='mr-5  md:mr-16'>
-          <p className="text-white-50 bg-purple-50 p-1 mt-3 w-full rounded-full flex-shrink-0">Find some Players!</p>
+        <Link to={"/userlist"} className='md:mr-16'>
+          <p className="text-white-50 bg-purple-50 p-1 w-full ml-2 rounded-full md:text-start flex-shrink-0 text-center">Find Players!</p>
         </Link>
-        <img src={Chat} onClick={renderConversations}/>
+        <img className="rounded-full w-10 h-10" src={Chat} onClick={renderConversations}/>
 
       
 
 
       <Link to={`/profile/${userID}`}>
-        <img src={Icon} className="h-2/3 mt-3 mx-5 rounded-full" />
+        <img src={Icon} className="h-2/3 mx-2 w-10 h-10 rounded-full" />
       </Link>
      
       <button type="click" onClick={handleLogout} className="mr-5 text-white-50">

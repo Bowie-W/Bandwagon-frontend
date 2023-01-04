@@ -61,15 +61,18 @@ export default function Login({logStatus, setLogStatus, userID}) {
   useEffect(()=>{
 
     if (logStatus === true) {
-      navigate(`/profile/${userID}`);
+      navigate(`/profile/${tokenInfo.id}`);
     }
   },[logStatus]);
+
+  console.log(userID)
+
 
   return (
     <div className="bg-gradient-to-r from-black-50 to-purple-50 text-white-50 w-screen h-screen flex flex-col justify-start items-center">
       <form
         onSubmit={handleLogin}
-        className="w-1/4 h-3/4 p-6 border-2 border-black flex flex-col mt-6"
+        className="w-3/4 md:w-1/4 md:h-3/4 p-6 border-2 border-black flex flex-col mt-6"
       >
         <div className="border-b-2 pb-4">
           <h2 className="text-center text-3xl">Hop On!</h2>
