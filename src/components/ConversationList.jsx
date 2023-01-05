@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ConversationSection from "./ConversationSection";
 
-export default function ConversationList({ convos, userId, messengers, messenerProfile }) {
+export default function ConversationList({ convos, userId, messengers, messengerProfile, handleMessages}) {
   // const [messengers, setMessengers] = useState([]);
-  // const [messenerProfile, setmessenerProfile] = useState([]);
+  // const [messengerProfile, setmessengerProfile] = useState([]);
 
   // useEffect(() => {
   //   const arr = [];
@@ -35,26 +35,27 @@ export default function ConversationList({ convos, userId, messengers, messenerP
   //       });
   //   }
 
-  //   setmessenerProfile(msgArray);
+  //   setmessengerProfile(msgArray);
   // }, [messengers]);
 
-  console.log(messenerProfile);
-  // console.log(convos);
-  // console.log(messengers);
+  console.log(messengerProfile);
+
+
 
   return (
-    <div className="mt-16 ml-3 md:mr-4 rounded-xl absolute w-11/12 md:w-64 h-64 bg-gray-50 -inset-y-0">
-      {messenerProfile?.map((user_info) => {
+    <div className="mt-16 ml-3 md:mr-4 rounded-xl absolute w-11/12 md:w-64 h-64 bg-gray-50 -inset-y-0 z-30">
+      {messengerProfile?.map((user_info) => {
         return (
-          <div className="  flex text-black-50 mx-2 my-3 border border-white-50 p-1 rounded-xl" key={user_info.id}>
-            <div className="topbar w-1/6 flex-shrink-0">
+          <div value={user_info.convo_id} onClick={handleMessages} className="  flex text-black-50 mx-2 my-3 border border-white-50 p-1 rounded-xl" key={user_info.id}>
+            <div value={user_info.convo_id} className="topbar w-1/6 flex-shrink-0">
               <img
                 className="rounded-full w-12 h-12 object-cover mr-5 flex-shrink-0"
                 src={user_info.profile_pic}
+                value={user_info.convo_id}
               ></img>
             </div>
-            <div className="bottombar  flex flex-col justify-center ml-5 max-w-xs ">
-              <p className="name text-white-50">{user_info.profile_name}</p>
+            <div value={user_info.convo_id} className="bottombar  flex flex-col justify-center ml-5 max-w-xs ">
+              <p value={user_info.convo_id} className="name text-white-50">{user_info.profile_name}</p>
               {/* <p className="messagetext text-center truncate text-s bg-purple-50 ">
                 {user_info.friendID}
               </p> */}
