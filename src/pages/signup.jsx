@@ -45,10 +45,12 @@ export default function Signup({setLogStatus}) {
   console.log(username)
   return (
     <div className="bg-gradient-to-r from-black-50 to-purple-50 w-screen h-screen flex flex-col justify-start items-center">
+      
       <form
         onSubmit={handleSignup}
-        className="px-10 w-5/6 md:w-1/2 md:h-4/6 justify-between lg:w-1/4 lg:h-1/2 p-6 border-2 border-black flex flex-col mt-14"
+        className="px-10 w-5/6 md:w-1/2 md:h-4/6 justify-between lg:w-1/4 lg:h-2/3 p-6 border-2 border-black flex flex-col mt-14"
       >
+        <h1 className="text-white-50 text-center text-4xl">Sign Up!</h1>
         <label htmlFor="username" className="text-white-50">Username:</label>
         <input name="username" onChange={(e) => setUsername(e.target.value)} className='pl-2 rounded-xl'></input>
         <label htmlFor="password"  className="text-white-50">Password:</label>

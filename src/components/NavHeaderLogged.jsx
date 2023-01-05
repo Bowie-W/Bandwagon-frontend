@@ -11,13 +11,15 @@ import Message from "../components/Message";
 import Chatbox from "../components/Chatbox";
 import ConversationList from "../components/ConversationList";
 
-export default function NavHeaderLogged({userID, logStatus, setLogStatus, token }) {
+export default function NavHeaderLogged({ logStatus, setLogStatus}) {
   const navigate = useNavigate();
   const [tokenInfo, setTokenInfo] = useState('')
   const [convoStatus, setConvoStatus] = useState(false)
-  // const [userID, setUserId] = useState('')
   const [convos, setConvos] = useState([])
-  const [user, setUser] = useState([])
+  const token = sessionStorage.getItem("authToken");
+  const [userId, setUserId] = useState('')
+  const [messengers, setMessengers] = useState([]);
+  const [messenerProfile, setMessenerProfile] = useState([]);
   const param = useParams()
 
   const handleLogout = (e) => {
@@ -28,26 +30,59 @@ export default function NavHeaderLogged({userID, logStatus, setLogStatus, token 
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:5050/conversations/${userID}`)
+    if (token) {
+      const decodedToken = jwtDecode(token)
+      setTokenInfo(decodedToken)
+      setUserId(decodedToken.id)
+    }
+  }, []);
+
+  useEffect(() => {
+    axios.get(`http://localhost:5050/conversations/${userId}`)
     .then((response)=>{
       setConvos(response.data)
       console.log(response.data)
       console.log(response.data[0].sender_id)
-      console.log(userID)
       
     })
   
-    }, []
+    }, [userId]
 
   )
 
-  useEffect(()=>{
-  
 
-  },[convos])
-  
-  // console.log(convos.data)
-  // console.log(userID)
+  useEffect(() => {
+    const arr = [];
+
+    for (let i = 0; i < convos.length; i++) {
+      if (convos[i].sender_id !== userId) {
+        let friendID = convos[i].sender_id;
+        arr.push({ id: friendID });
+      } else {
+        let friendID = convos[i].receiver_id;
+        arr.push({ id: friendID });
+      }
+    }
+    console.log(arr);
+    setMessengers(arr);
+    console.log(messengers);
+  }, [convos]);
+
+  useEffect(() => {
+    const msgArray = [];
+
+    for (let i = 0; i < messengers.length; i++) {
+      axios
+        .get(`http://localhost:5050/users/${messengers[i].id}`)
+        .then((response) => {
+          msgArray.push(response.data[0]);
+        });
+    }
+
+    setMessenerProfile(msgArray);
+  }, [messengers]);
+
+
 
   const renderConversations = () => {
     if (convoStatus === false) {
@@ -55,10 +90,12 @@ export default function NavHeaderLogged({userID, logStatus, setLogStatus, token 
       setConvoStatus(false)
     }
   }
-  console.log(userID)
+
+  console.log(messenerProfile)
+
 
   return (
-    <div className="w-full max-w-screen z-10 fixed h-14 bg-gray-100 flex justify-between md:justify-end items-center box-border text-white-50">
+    <div className="w-full max-w-screen z-10 fixed h-14 bg-gray-100 flex justify-between md:justify-end items-center box-border text-white-50 relative">
       
         <Link to={"/userlist"} className='md:mr-16'>
           <p className="text-white-50 bg-purple-50 p-1 w-full ml-2 rounded-full md:text-start flex-shrink-0 text-center">Find Players!</p>
@@ -68,14 +105,14 @@ export default function NavHeaderLogged({userID, logStatus, setLogStatus, token 
       
 
 
-      <Link to={`/profile/${userID}`}>
+      <Link to={`/profile/${userId}`}>
         <img src={Icon} className="h-2/3 mx-2 w-10 h-10 rounded-full" />
       </Link>
      
       <button type="click" onClick={handleLogout} className="mr-5 text-white-50">
         Signout
       </button>
-      {convoStatus ? <ConversationList user={user} setUser={setUser} userID={userID} convos={convos}/> : null}
+      {convoStatus ? <ConversationList messenerProfile={messenerProfile} messengers={messengers} userId={userId} convos={convos}/> : null}
     </div>
   );
 }

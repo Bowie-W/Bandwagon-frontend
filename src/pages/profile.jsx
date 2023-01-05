@@ -52,7 +52,7 @@ export default function Profile({ token }) {
       .get(`${Serv_URL}/profile/${param.undefined}/gear`)
       .then((response) => {
         setGear(response.data.userGear);
-        console.log(response.data);
+        // console.log(response.data);
       });
   }, [param.undefined]);
 
@@ -69,7 +69,7 @@ export default function Profile({ token }) {
   useEffect(() => {
   }, [user]);
 
-  console.log(user)
+  // console.log(user)
 
 
   useEffect(() => {
@@ -93,11 +93,11 @@ export default function Profile({ token }) {
     setInfoDisplay(<Bio/>);
   }
 
-  console.log(tracks)
+
 
   return (
     <div
-      className="flex flex-col pt-14 md:flex-row h-screen bg-gradient-to-r from-purple-50 to-black-50"
+      className="flex flex-col md:flex-row h-screen bg-gradient-to-r from-purple-50 to-black-50"
     >
       <div className="leftbar w-screen h-screen bg-black-50 pb-5 items-center md:rounded-xl md:w-1/4 md:mt-5 md:ml-5 md:h-5/6 md:pb-0">
         <div className="flex md:flex-col md:justify-center md:items-center">
@@ -110,13 +110,13 @@ export default function Profile({ token }) {
           <div className="w-full flex flex-col justify-center md:items-center md:h-1/3 bg-black-50">
             <div>
             {genreChips.map((genreChip) =>(
-                 <button type="click" className=" text-center rounded-2xl text-white-50 px-3 py-1 bg-gray-50 mr-2 my-1">
+                 <button key={genreChip} type="click" className=" text-center rounded-2xl text-white-50 px-3 py-1 bg-gray-50 mr-2 my-1">
                  {genreChip}
                </button>
             ))}
             </div>
           <div> {instrChips.map((instrChip) =>(
-                 <button type="click" className=" text-center rounded-2xl text-white-50 px-3 py-1 bg-purple-50 mr-2 my-1">
+                 <button key={instrChip} type="click" className=" text-center rounded-2xl text-white-50 px-3 py-1 bg-purple-50 mr-2 my-1">
                  {instrChip}
                </button>
             ))}</div>
