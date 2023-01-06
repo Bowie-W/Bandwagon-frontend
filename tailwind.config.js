@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'Plein':['Plein', "sans-serif"]
+      },
       colors: {
         black: {
           50: '#16161a'

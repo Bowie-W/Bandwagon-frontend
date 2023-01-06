@@ -6,7 +6,7 @@ import Message from "../components/Message";
 export default function Chatbox({ handleChatBox, convoMsgs, currentMsger }) {
   return (
     <div
-      className="convo-container bg-black-50 h-screen pb-16 inset-y-0 absolute rounded-xl
+      className="convo-container bg-black-50 w-screen h-screen pb-16 inset-y-0 absolute rounded-xl
     
                     md:h-80 md:w-80 md:inset-y-72 md:pb-0"
     >
