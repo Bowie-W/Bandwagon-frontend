@@ -23,6 +23,7 @@ export default function NavHeaderLogged({ logStatus, setLogStatus }) {
   const [messengers, setMessengers] = useState([]);
   const [messengerProfile, setMessengerProfile] = useState([]);
   const [convoMsgs, setConvoMsgs] = useState([]);
+  const [navUser, setNavUser] = useState('')
   const param = useParams();
 
   const handleLogout = (e) => {
@@ -49,6 +50,14 @@ export default function NavHeaderLogged({ logStatus, setLogStatus }) {
         // console.log(response.data[0].sender_id);
       });
   }, [userId]);
+
+  useEffect(() =>{
+    axios
+    .get(`http://localhost:5050/profile/${userId}`)
+      .then((response) => {
+        setNavUser(response.data);
+  })
+}, [userId])
 
   useEffect(() => {
     const arr = [];
@@ -126,13 +135,15 @@ export default function NavHeaderLogged({ logStatus, setLogStatus }) {
         }
         setChatBoxStatus(true);
         setConvoStatus(false);
-        setConvoMsgs(response.data);
+        console.log(response.data)
+        const sortedArr = response.data.sort((a, b) => a.created_at.localeCompare(b.created_at))
+        setConvoMsgs(sortedArr);
 
         console.log(response);
       });
   };
 
-  console.log(currentMsger);
+  console.log(convoMsgs);
 
   return (
     <div className="w-full max-w-screen z-10 fixed h-14 bg-gray-100 flex justify-between md:justify-end items-center box-border text-white-50 relative">
@@ -171,7 +182,10 @@ export default function NavHeaderLogged({ logStatus, setLogStatus }) {
         <Chatbox
           handleChatBox={handleChatBox}
           convoMsgs={convoMsgs}
+          setConvoMsgs={setConvoMsgs}
           currentMsger={currentMsger}
+          userId={userId}
+          navUser={navUser}
         />
       ) : null}
     </div>

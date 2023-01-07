@@ -102,7 +102,7 @@ export default function Profile({ token }) {
       <div className="leftbar w-screen h-screen bg-black-50 pb-5 items-center md:rounded-xl md:w-1/4 md:mt-5 md:ml-5 md:h-5/6 md:pb-0">
         <div className="flex md:flex-col md:justify-center md:items-center">
           <img
-            className="avatar w-1/2 h-1/2 md:w-28 md:h-28 lg:w-44 lg:h-44 ml-5 mr-4 my-5 object-cover rounded-xl md:w-36 md:h-36  md:my-5"
+            className="avatar w-1/2 h-1/2 md:w-28 md:h-28 lg:w-44 lg:h-44 ml-4 mr-4 my-5 object-cover rounded-xl md:w-36 md:h-36  md:my-5"
             src={user.profile_pic}
             alt="profile pic"
           />
