@@ -18,11 +18,13 @@ module.exports = {
           100: '#242629'
         },
         white: {
-          50: '#fffffe'
+          50: '#fffffe',
+          100: '#ddd6f2'
         },
         purple: {
           50: '#7f5af0',
-          100: '#8701F7'
+          100: '#8701F7',
+          150: '#c4b5f2'
         },
         teal: {
           50: '#2cb67d'

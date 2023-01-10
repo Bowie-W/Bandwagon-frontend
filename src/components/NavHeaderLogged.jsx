@@ -11,7 +11,7 @@ import Message from "../components/Message";
 import Chatbox from "../components/Chatbox";
 import ConversationList from "../components/ConversationList";
 
-export default function NavHeaderLogged({ logStatus, setLogStatus }) {
+export default function NavHeaderLogged({ logStatus, setLogStatus, firstContactStatus }) {
   const navigate = useNavigate();
   const [tokenInfo, setTokenInfo] = useState("");
   const [convoStatus, setConvoStatus] = useState(false);
@@ -118,28 +118,37 @@ export default function NavHeaderLogged({ logStatus, setLogStatus }) {
   // console.log(convos);
   const handleMessages = (event) => {
     console.log(event.target.attributes.value.value);
+    setChatBoxStatus(false)
     axios
       .get(
         `http://localhost:5050/messages/${event.target.attributes.value.value}`
       )
       .then((response) => {
-        console.log(response.data[0].conversation_id)
-        const foundconvo =  convos.find(convo => response.data[0].conversation_id === convo.id)
-        console.log(foundconvo)
-        if (foundconvo.receiver_id !== userId){
-          const otherUser = messengerProfile.find(user => foundconvo.receiver_id === user.id)
-          setCurrentMsger(otherUser)
-        } else {
-          const otherUser = messengerProfile.find(user => foundconvo.sender_id === user.id)
-          setCurrentMsger(otherUser)
-        }
-        setChatBoxStatus(true);
-        setConvoStatus(false);
         console.log(response.data)
-        const sortedArr = response.data.sort((a, b) => a.created_at.localeCompare(b.created_at))
-        setConvoMsgs(sortedArr);
-
-        console.log(response);
+        if (response.data.length !==0){
+          console.log(response.data[0].conversation_id)
+          const foundconvo =  convos.find(convo => response.data[0].conversation_id === convo.id)
+          console.log(foundconvo)
+          if (foundconvo.receiver_id !== userId){
+            const otherUser = messengerProfile.find(user => foundconvo.receiver_id === user.id)
+            setCurrentMsger(otherUser)
+          } else {
+            const otherUser = messengerProfile.find(user => foundconvo.sender_id === user.id)
+            setCurrentMsger(otherUser)
+          }
+          setChatBoxStatus(true);
+          setConvoStatus(false);
+          console.log(response.data)
+          const sortedArr = response.data.sort((a, b) => a.created_at.localeCompare(b.created_at))
+          setConvoMsgs(sortedArr);
+  
+          console.log(response);
+        } else {
+          setConvoMsgs([])
+          setChatBoxStatus(true)
+          setConvoStatus(false);
+        }
+       
       });
   };
 
@@ -148,7 +157,7 @@ export default function NavHeaderLogged({ logStatus, setLogStatus }) {
   return (
     <div className="w-full max-w-screen z-10 fixed h-14 bg-gray-100 flex justify-between md:justify-end items-center box-border text-white-50 relative">
       <Link to={"/userlist"} className="md:mr-16">
-        <p className="text-white-50 bg-purple-50 p-1 w-full ml-2 rounded-full md:text-start flex-shrink-0 text-center">
+        <p className="text-white-50 bg-purple-50 p-1 w-full ml-2 rounded-full flex-shrink-0 text-center">
           Find Players!
         </p>
       </Link>

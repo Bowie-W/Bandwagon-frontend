@@ -98,7 +98,7 @@ export default function Userlist({ token }) {
                     </div>
                     <div className="flex flex-wrap">
                       {userlist_info.userlistInstr.map((chip) => (
-                        <div className="text-center rounded-2xl text-white-50 px-3 py-1 bg-purple-50 my-1 mx-1">
+                        <div className="text-center rounded-2xl text-white-50 px-3 py-1 bg-purple-100 my-1 mx-1">
                           {chip}
                         </div>
                       ))}

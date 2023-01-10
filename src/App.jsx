@@ -14,6 +14,9 @@ import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
 import { useParams } from "react-router-dom"
 import jwtDecode from "jwt-decode"
+import axios from "axios"
+// var passport = require('passport')
+// var GoogleStrategy = require ('passport-google-oauth20')
 
 
 
@@ -25,6 +28,7 @@ export default function App() {
   const token = sessionStorage.getItem("authToken");
   const [tokenInfo, setTokenInfo] = useState('')
   const [userID, setUserId] = useState('')
+  const [firstContactStatus, setFirstContactStatus] = useState(false)
   const {id} = useParams()
 
   useEffect(() => {
@@ -35,6 +39,8 @@ export default function App() {
       setUserId(decodedToken.id)
     }
   }, []);
+
+
 
   // useEffect(() =>{
     
@@ -47,11 +53,11 @@ export default function App() {
   
     return (
       <BrowserRouter>
-      {logStatus === true ? <NavHeaderLogged userID={userID}logStatus={logStatus} setLogStatus={setLogStatus} id={id} token={token}/> : <NavHeader/>}
+      {logStatus === true ? <NavHeaderLogged userID={userID}logStatus={logStatus} setLogStatus={setLogStatus} id={id} token={token} firstContactStatus={firstContactStatus}/> : <NavHeader/>}
         <Routes>
           <Route path="/" element={<Login logStatus={logStatus} setLogStatus={setLogStatus} userID={userID}/>}></Route>
           <Route path="/signup" element={<Signup  setLogStatus={setLogStatus}/>}></Route>
-          <Route path= {`/profile/:${id}`} element={<Profile token={token}/>}></Route>
+          <Route path= {`/profile/:${id}`} element={<Profile token={token} setFirstContactStatus={setFirstContactStatus}/>}></Route>
           <Route path={`/profile/customize/:${id}`} element={<Customize token={token} />}></Route>
           <Route path="/userlist" element={<Userlist token={token}/>}></Route>
           <Route path="/test" element={<Testing/>}></Route>

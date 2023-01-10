@@ -43,8 +43,8 @@ export default function ConversationList({ convos, userId, messengers, messenger
 
 
   return (
-    <div className="mt-16 ml-3 md:mr-4 rounded-xl absolute w-11/12 md:w-64 h-64 bg-gray-50 -inset-y-0 z-30">
-      {messengerProfile?.map((user_info) => {
+    <div className="mt-16 ml-3 md:mr-4 rounded-xl absolute w-11/12 md:w-64 h-64  bg-gradient-to-t from-purple-50 to-gray-50 -inset-y-0 z-30">
+      {convos.length !== 0 ? messengerProfile?.map((user_info) => {
         return (
           <div value={user_info.convo_id} onClick={handleMessages} className="  flex text-black-50 mx-2 my-3 border border-white-50 p-1 rounded-xl" key={user_info.id}>
             <div value={user_info.convo_id} className="topbar w-1/6 flex-shrink-0">
@@ -62,7 +62,7 @@ export default function ConversationList({ convos, userId, messengers, messenger
             </div>
           </div>
         );
-      })}
+      }): <p className="  flex  mx-2 my-3 border justify-center border-white-50 p-1 rounded-xl" >No Conversations Start Yet</p>}
     </div>
   );
 }

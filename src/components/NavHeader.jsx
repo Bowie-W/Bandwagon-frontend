@@ -8,7 +8,7 @@ export default function NavHeader() {
     
   return (
     <div className="w-screen bg-black-50 h-14 flex justify-center items-center">
-     <h1 className="text-white-50 text-3xlnp">BANDWAGON</h1>
+     <h1 className="text-white-50 text-3xl">BANDWAGON</h1>
     </div>
   );
 }

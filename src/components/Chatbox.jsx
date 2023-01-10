@@ -47,7 +47,7 @@ export default function Chatbox({ handleChatBox, convoMsgs, setConvoMsgs,current
     
                     md:h-80 md:w-80 md:inset-y-72 lg:inset-y-40 md:fixed md:pb-0"
     >
-      <div className="flex justify-end bg-gray-50 ">
+      <div className="flex justify-end rounded-tl-xl bg-gradient-to-b from-purple-50 to-white-100">
         <button
           onClick={handleChatBox}
           className="mr-1 mt-1 mb-1 bg-purple-50 rounded-full px-2"
@@ -55,6 +55,7 @@ export default function Chatbox({ handleChatBox, convoMsgs, setConvoMsgs,current
           X
         </button>
       </div>
+      
       <div className="h-5/6 overflow-y-scroll scrollbar-thin">
         {convoMsgs.map((message) => {
           return (
@@ -71,7 +72,7 @@ export default function Chatbox({ handleChatBox, convoMsgs, setConvoMsgs,current
           );
         })}
       </div>
-      <form onSubmit={submitMsg} className="flex items-center lg:rounded-bl-xl bg-gray-50 h-1/4">
+      <form onSubmit={submitMsg} className="flex items-center lg:rounded-bl-xl bg-gradient-to-t from-purple-50 to-gray-50 0 h-1/4">
         <textarea value={newMsg} onChange={(e) => setNewMsg(e.target.value)} className="h-5/6 w-3/4 p-1 rounded resize-none scrollbar-thin ml-2 text-black-50"></textarea>
         <button className="text-white-50 ml-3 bg-purple-50 h-1/2 px-5 rounded-full">
           Send
