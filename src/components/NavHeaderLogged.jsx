@@ -11,7 +11,7 @@ import Message from "../components/Message";
 import Chatbox from "../components/Chatbox";
 import ConversationList from "../components/ConversationList";
 
-export default function NavHeaderLogged({ logStatus, setLogStatus, firstContactStatus }) {
+export default function NavHeaderLogged({newConvoId, logStatus, setLogStatus, firstContactStatus, setFirstContactStatus }) {
   const navigate = useNavigate();
   const [tokenInfo, setTokenInfo] = useState("");
   const [convoStatus, setConvoStatus] = useState(false);
@@ -24,6 +24,7 @@ export default function NavHeaderLogged({ logStatus, setLogStatus, firstContactS
   const [messengerProfile, setMessengerProfile] = useState([]);
   const [convoMsgs, setConvoMsgs] = useState([]);
   const [navUser, setNavUser] = useState('')
+  const [selectedConvo, setSelectedConvo] = useState('')
   const param = useParams();
 
   const handleLogout = (e) => {
@@ -46,10 +47,15 @@ export default function NavHeaderLogged({ logStatus, setLogStatus, firstContactS
       .get(`http://localhost:5050/conversations/${userId}`)
       .then((response) => {
         setConvos(response.data);
+        console.log('working')
         // console.log(response.data);
         // console.log(response.data[0].sender_id);
       });
-  }, [userId]);
+  }, [userId, firstContactStatus]);
+
+//   useEffect(()=>{
+// console.log('reading change')
+//   }, [firstContactStatus])
 
   useEffect(() =>{
     axios
@@ -73,7 +79,7 @@ export default function NavHeaderLogged({ logStatus, setLogStatus, firstContactS
     }
     // console.log(arr);
     setMessengers(arr);
-    // console.log(messengers);
+    console.log('working step 2');
   }, [convos]);
 
   useEffect(() => {
@@ -108,16 +114,32 @@ export default function NavHeaderLogged({ logStatus, setLogStatus, firstContactS
   };
 
   const handleChatBox = () => {
-    if (chatBoxStatus === false) {
+    if (chatBoxStatus === false && firstContactStatus  !== true) {
       setChatBoxStatus(true);
+      setFirstContactStatus(false)
     } else {
       setChatBoxStatus(false);
+      setFirstContactStatus(false)
     }
   };
+  
+
+  useEffect(()=>{
+    if (firstContactStatus===true){
+      setSelectedConvo(newConvoId)
+      renderConversations()
+      setConvoMsgs([])
+      setChatBoxStatus(false)
+      setChatBoxStatus(true)
+      }
+  
+
+  }, [firstContactStatus])
 
   // console.log(convos);
   const handleMessages = (event) => {
     console.log(event.target.attributes.value.value);
+    setSelectedConvo(event.target.attributes.value.value)
     setChatBoxStatus(false)
     axios
       .get(
@@ -144,6 +166,7 @@ export default function NavHeaderLogged({ logStatus, setLogStatus, firstContactS
   
           console.log(response);
         } else {
+          console.log(response)
           setConvoMsgs([])
           setChatBoxStatus(true)
           setConvoStatus(false);
@@ -152,7 +175,7 @@ export default function NavHeaderLogged({ logStatus, setLogStatus, firstContactS
       });
   };
 
-  console.log(convoMsgs);
+  // console.log(convos);
 
   return (
     <div className="w-full max-w-screen z-10 fixed h-14 bg-gray-100 flex justify-between md:justify-end items-center box-border text-white-50 relative">
@@ -190,9 +213,11 @@ export default function NavHeaderLogged({ logStatus, setLogStatus, firstContactS
       {chatBoxStatus ? (
         <Chatbox
           handleChatBox={handleChatBox}
+          selectedConvo={selectedConvo}
           convoMsgs={convoMsgs}
           setConvoMsgs={setConvoMsgs}
           currentMsger={currentMsger}
+          setCurrentMsger={setCurrentMsger}
           userId={userId}
           navUser={navUser}
         />

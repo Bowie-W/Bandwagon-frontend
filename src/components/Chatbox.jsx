@@ -6,13 +6,41 @@ import { v4 as uuidv4 } from "uuid";
 import { useRef } from "react";
 import { io } from "socket.io-client";
 
-export default function Chatbox({ handleChatBox, convoMsgs, setConvoMsgs,currentMsger, userId, navUser }) {
+export default function Chatbox({ selectedConvo, handleChatBox, convoMsgs, setConvoMsgs,currentMsger,   setCurrentMsger, userId, navUser }) {
 
     const [newMsg, setNewMsg] = useState('')
-    const [socket, setSocket] = useState(null)
+    const socket = useRef(io('ws://localhost:8080'))
     const scrollref = useRef()
+    const msgTarget = currentMsger.id
 
     console.log(newMsg)
+
+    // useEffect(()=> {})
+
+    useEffect(()=>{
+        socket.current.on('getMessage', data=>{
+            console.log(data)
+            const arrivalMsg = {
+                sender_id:data.senderId,
+                message: data.text
+            }
+            setConvoMsgs((msgs) => [...msgs, arrivalMsg])
+            scrollref.current?.scrollIntoView({behavior: 'smooth'})
+        })
+    }, [socket])
+
+    console.log(convoMsgs)
+
+    // useEffect(()=>{
+    //     arrivalMsg 
+    // },[arrivalMsg])
+
+    useEffect(()=>{
+        socket.current.emit("addUser", userId);
+        socket.current.on('getUsers', users=>{
+            console.log(users)})
+    }, [userId])
+
 
     const submitMsg = (event) =>{
         event.preventDefault();
@@ -20,26 +48,33 @@ export default function Chatbox({ handleChatBox, convoMsgs, setConvoMsgs,current
             id: uuidv4(),
             sender_id: userId,
             message: newMsg,
-            conversation_id: convoMsgs[0].conversation_id,
+            conversation_id: selectedConvo,
 
         }
         axios
-        .post(`http://localhost:5050/messages/${convoMsgs[0].conversation_id}`, msgInfo)
+        .post(`http://localhost:5050/messages/${selectedConvo}`, msgInfo)
         .then((response) =>{
             setConvoMsgs([...convoMsgs, response.data])
             setNewMsg('')
         })
+        .then( ()=>{
+            setCurrentMsger(currentMsger)
+        })
+        .then( 
+            
+            socket.current.emit('sendMsg', {
+            senderId: userId,
+            receiverId: msgTarget,
+            text: newMsg
+        }))
     }
 
-    useEffect(()=>{
-        setSocket(io('ws://localhost:8080'))
-    },[])
+    console.log(currentMsger)
 
     useEffect(()=>{
         scrollref.current?.scrollIntoView({behavior: 'smooth'})
     }, [convoMsgs])
 
-    console.log(convoMsgs)
 
   return (
     <div

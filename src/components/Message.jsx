@@ -10,11 +10,10 @@ export default function Message({
   navUser,
 }) {
 
-  //   console.log()
   return (
     <div>
       {convoMsgs.length === 0 ? (
-        <h1 className="bg-red-500 h-screen">testing</h1>
+        <h1 className="bg-red-500 w-screen h-screen">testing</h1>
       ) : (
         <div>
           {" "}

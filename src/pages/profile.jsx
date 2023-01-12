@@ -8,7 +8,7 @@ import jwtDecode from "jwt-decode";
 const { v4: uuid } = require("uuid")
 
 
-export default function Profile({ token, setFirstContactStatus }) {
+export default function Profile({newConvoId, setNewConvoId, token, firstContactStatus, setFirstContactStatus }) {
   const Serv_URL = "http://localhost:5050";
   const [user, setUser] = useState("");
   const [infoDisplay, setInfoDisplay] = useState(<Bio />);
@@ -31,7 +31,7 @@ export default function Profile({ token, setFirstContactStatus }) {
         const instrChipsArray = instrChipsString.split(",");
         setGenreChips(genreChipsArray);
         setInstrChips(instrChipsArray);
-        const username = response.data.username;
+
       })
       .then(setInfoDisplay(<Bio />));
   }, [param.undefined]);
@@ -73,6 +73,7 @@ export default function Profile({ token, setFirstContactStatus }) {
 
   const handleNewChat = (event) => {
     event.preventDefault()
+    const chatId = uuid()
     const convoIds = {
       contactId: user.id,
       userId:tokenInfo.id
@@ -82,24 +83,22 @@ export default function Profile({ token, setFirstContactStatus }) {
     .then((response) => {
       if (response.data.length === 0){
         const convoInfo = {
-          id: uuid(),
+          id: chatId,
           sender_id:tokenInfo.id,
           receiver_id:user.id
         }
         axios
         .post('http://localhost:5050/conversations', convoInfo)
         .then((response) =>{
-          console.log(response)
           setFirstContactStatus(true)
+          setNewConvoId(chatId)
         })
 
-      } else {
-        console.log(response)
       }
     })
 
   
-
+console.log(firstContactStatus)
     
   }
 

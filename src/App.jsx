@@ -29,6 +29,8 @@ export default function App() {
   const [tokenInfo, setTokenInfo] = useState('')
   const [userID, setUserId] = useState('')
   const [firstContactStatus, setFirstContactStatus] = useState(false)
+
+  const [newConvoId, setNewConvoId] = useState('')
   const {id} = useParams()
 
   useEffect(() => {
@@ -40,6 +42,7 @@ export default function App() {
     }
   }, []);
 
+  console.log(firstContactStatus)
 
 
   // useEffect(() =>{
@@ -53,11 +56,11 @@ export default function App() {
   
     return (
       <BrowserRouter>
-      {logStatus === true ? <NavHeaderLogged userID={userID}logStatus={logStatus} setLogStatus={setLogStatus} id={id} token={token} firstContactStatus={firstContactStatus}/> : <NavHeader/>}
+      {logStatus === true ? <NavHeaderLogged newConvoId={newConvoId} userID={userID}logStatus={logStatus} setLogStatus={setLogStatus} id={id} token={token} firstContactStatus={firstContactStatus} setFirstContactStatus={setFirstContactStatus}/> : <NavHeader/>}
         <Routes>
           <Route path="/" element={<Login logStatus={logStatus} setLogStatus={setLogStatus} userID={userID}/>}></Route>
           <Route path="/signup" element={<Signup  setLogStatus={setLogStatus}/>}></Route>
-          <Route path= {`/profile/:${id}`} element={<Profile token={token} setFirstContactStatus={setFirstContactStatus}/>}></Route>
+          <Route path= {`/profile/:${id}`} element={<Profile newConvoId={newConvoId} setNewConvoId={setNewConvoId} token={token} firstContactStatus={firstContactStatus} setFirstContactStatus={setFirstContactStatus}/>}></Route>
           <Route path={`/profile/customize/:${id}`} element={<Customize token={token} />}></Route>
           <Route path="/userlist" element={<Userlist token={token}/>}></Route>
           <Route path="/test" element={<Testing/>}></Route>
